@@ -1,0 +1,68 @@
+import Mobile from './Mobile';
+import Desktop from './Desktop';
+import AppLink from '../AppLink';
+import Notification from '../Notification';
+
+import AppIcon from 'public/svg/app_logo.svg';
+
+import { useMobile } from 'hooks/useWindowSize';
+import { useAppSelector } from 'hooks/useStore';
+import { useGetConfig } from 'hooks/useGetConfig';
+
+import { routeURLs } from 'constants/routes';
+import selectedConnection from 'redux/connection/selector';
+import { useTranslation } from 'next-i18next';
+import EcosystemDropdown from './EcosystemDropdown';
+import DocsDropdown from './DocsDropdown';
+
+type HeaderProps = Record<string, never>;
+
+const Header: React.FC<HeaderProps> = () => {
+  const { t } = useTranslation();
+  const isMobile = useMobile();
+
+  const { isConnected } = useAppSelector(selectedConnection.getConnection);
+  const { isMaintenance } = useGetConfig();
+
+  return (
+    <header className='app-header'>
+      <div className='container'>
+        <div className='menu'>
+          <div className='logo'>
+            <AppLink href={routeURLs.HOME}>
+              <img src={AppIcon} className='app-header__app-icon' />
+            </AppLink>
+          </div>
+          {!isMobile ? (
+            <div className='items'>
+              <AppLink href={routeURLs.HOME}>{t('home.txt_events')}</AppLink>
+              <AppLink href={'#'}>
+                <div className='locking'>
+                  {t('home.txt_locking')}
+                  <div className='collab'>
+                    {t('home.txt_collab_with')}
+                    {'  '}
+                    <img src={AppIcon} className='app-header__collab-icon' />
+                  </div>
+                </div>
+              </AppLink>
+              <AppLink href={'#'}>{t('home.txt_landing_page')}</AppLink>
+              <DocsDropdown />
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+
+        {!isMaintenance && (
+          <div className='app-header__toogle'>
+            {isConnected && <Notification />}
+            {isMobile ? <Mobile /> : <Desktop />}
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default Header;
