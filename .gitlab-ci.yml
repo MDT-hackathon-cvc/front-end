@@ -1,0 +1,11 @@
+job-admin:
+  tags:
+    - user
+  before_script:
+    - eval "$(ssh-agent -s)"
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - ssh-add -l
+  only:
+    - develop
+  script:
+    - ssh $SSH_USER@$VM_IPADDRESS 'bash' < ./bash/deploy.sh

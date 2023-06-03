@@ -1,0 +1,13 @@
+@import './banner';
+@import './nfts';
+@import './search';
+@import './list';
+@import './filter';
+@import './event';
+@import './twitter';
+
+.home-page-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
