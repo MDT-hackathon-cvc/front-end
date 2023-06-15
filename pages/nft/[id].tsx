@@ -12,6 +12,7 @@ import { useGetNftDetail } from '@components//pages/nft/hooks';
 
 import nftServices from 'services/nft';
 import { checkSuccessRequest } from 'services/api';
+import withServerSideProps from 'hoc/withServerSideProps';
 
 export const NftDetailContext = createContext({});
 
@@ -19,9 +20,9 @@ const NftDetail = ({ nftDetailSeo }: { nftDetailSeo?: any }) => {
   const {
     query: { id },
   } = useRouter() as any;
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
-  const { loading } = useGetNftDetail(id as string) as any;
+  // const { loading } = useGetNftDetail(id as string) as any;
 
   return (
     <PublicLayout
@@ -34,21 +35,22 @@ const NftDetail = ({ nftDetailSeo }: { nftDetailSeo?: any }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(() => async (ctx: any) => {
-  const { locale, query, params }: any = ctx;
+// export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(() => async (ctx: any) => {
+//   const { locale, query, params }: any = ctx;
 
-  let nftDetailSeo = {};
-  const response = await nftServices.handleGetNftDetail(query?.id);
-  if (checkSuccessRequest(response)) {
-    nftDetailSeo = response?.data;
-  }
-  return {
-    props: {
-      nftDetailSeo,
-      ...params,
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
-});
+//   const nftDetailSeo = {};
+//   // const response = await nftServices.handleGetNftDetail(query?.id);
+//   // if (checkSuccessRequest(response)) {
+//   //   nftDetailSeo = response?.data;
+//   // }
+//   return {
+//     props: {
+//       nftDetailSeo,
+//       // ...params,
+//       // ...(await serverSideTranslations(locale, ['common'])),
+//     },
+//   };
+// });
+export const getServerSideProps: GetServerSideProps = withServerSideProps((context: any) => context);
 
 export default NftDetail;

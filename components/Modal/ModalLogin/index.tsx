@@ -9,6 +9,10 @@ import LoadingIcon from '@components//LoadingIcon';
 
 import NextIcon from 'public/svg/next_icon.svg';
 import MetamaskLogo from 'public/svg/metamask_icon.svg';
+import FacebookLogo from 'public/svg/facebook_icon.svg';
+import TwitterLogo from 'public/svg/twitter_icon.svg';
+import EmailLogo from 'public/svg/email_icon.svg';
+
 import ConnectingIcon from 'public/svg/connect_wallet_icon.svg';
 import WalletIcon from 'public/svg/wallet_icon.svg';
 import WalletConnectIcon from 'public/svg/icon_walletconnect.svg';
@@ -23,20 +27,28 @@ import { useAppDispatch, useAppSelector } from 'hooks/useStore';
 
 import { getErrorConnectMessage } from 'connectors';
 import { METAMASK, METAMASK_DEEPLINK, WALLET_CONNECT } from 'connectors/constants';
+import ModalSignUp from '../ModalSignUp';
+import EmailLogin from './EmailLogin';
+import { DEFAULT_EMAIL_LOGIN_VALUE } from 'constants/common';
+import ModalStep from '../ModalStep';
 
 declare let window: any;
 
-const ModalConnectWallet = () => {
+const ModalLogin = () => {
   const { t } = useTranslation();
+  const [isVisibleSignUp, setIsVisibleSignUp] = useState(false);
+  const [visibleEmail, setVisibleEmail] = useState(false);
+  const [initialValuesEmail, setInitialValuesEmail] = useState(DEFAULT_EMAIL_LOGIN_VALUE);
+
   const dispatch = useAppDispatch();
   const { active, deactivate, account } = useWeb3React();
 
   const { isShowConnectModal, isConnectingWallet } = useAppSelector(selectedConnection.getConnection);
 
-  const handleHideModalConnectWallet = () => dispatch(handleSetConnectModal(false));
+  const handleHideModalLogin = () => dispatch(handleSetConnectModal(false));
 
-  const handleCloseModalConnectWallet = () => {
-    handleHideModalConnectWallet();
+  const handleCloseModalLogin = () => {
+    handleHideModalLogin();
     dispatch(handleSetLoadingMetamask(false));
   };
 
@@ -53,7 +65,7 @@ const ModalConnectWallet = () => {
   }, [connectedWalletType, active, account]);
 
   const handleConnectMetamask = () => {
-    handleHideModalConnectWallet();
+    handleHideModalLogin();
 
     connectInjected(
       undefined,
@@ -66,7 +78,7 @@ const ModalConnectWallet = () => {
   };
 
   const handleConnectWallet = () => {
-    handleHideModalConnectWallet();
+    handleHideModalLogin();
 
     connectWalletConnect({
       failed: (err) => {
@@ -79,9 +91,24 @@ const ModalConnectWallet = () => {
     setConnectedWalletType(WALLET_CONNECT);
   };
 
+  const handleConnectByFacebook = () => { return };
+  const handleConnectByTwitter = () => { return };
+  const handleConnectByEmail = () =>     setVisibleEmail(true);
+  const handleCloseLogintByEmail = () => {
+    setVisibleEmail(false);
+    setInitialValuesEmail(DEFAULT_EMAIL_LOGIN_VALUE);
+  };
+
+  const handleOpenModalSignUp = () => {
+    handleHideModalLogin();
+    setIsVisibleSignUp(true);
+  }
+  const handleCloseModalSignUp = () => {
+    setIsVisibleSignUp(false);
+  }
   const renderConnectWallet = () => (
     <div className='wallet-modal'>
-      <p className='title'>{t('common.txt_connect_wallet_modal_title')}</p>
+      <p className='title'>{t('common.txt_login')}</p>
       <div className='wallet-modal__button'>
         <p className='sub-title' dangerouslySetInnerHTML={{ __html: t('common.txt_connect_wallet_modal_content') }} />
         <AppButton
@@ -92,18 +119,36 @@ const ModalConnectWallet = () => {
           prefixIcon={<img src={MetamaskLogo} />}
           afterIcon={<img src={NextIcon} />}
         />
+        <AppButton
+          text={t('signUp.txt_title_facebook')}
+          onClick={handleConnectByFacebook}
+          className='wallet-modal__button--first'
+          variant='dark'
+          prefixIcon={<img src={FacebookLogo} />}
+          afterIcon={<img src={NextIcon} />}
+        />
+        <AppButton
+          text={t('signUp.txt_title_twitter')}
+          onClick={handleConnectByTwitter}
+          className='wallet-modal__button--first'
+          variant='dark'
+          prefixIcon={<img src={TwitterLogo} />}
+          afterIcon={<img src={NextIcon} />}
+        />
+        <AppButton
+          text={t('common.txt_login_email')}
+          onClick={handleConnectByEmail}
+          className='wallet-modal__button--first'
+          variant='dark'
+          prefixIcon={<img src={EmailLogo} />}
+          afterIcon={<img src={NextIcon} />}
+        />
         <p className='sub-note'>
           <img className='sub-note__image' src={InfoIcon} />
-          <span dangerouslySetInnerHTML={{ __html: t('common.txt_connect_to_metamask_note') }} />
+          <span dangerouslySetInnerHTML={{ __html: t('common.txt_question') }} />
+          <strong onClick={handleOpenModalSignUp} style={{ cursor: 'pointer', marginLeft: '5px' }}>{t('common.txt_suggest_signUp')}</strong>
         </p>
-        {/* <AppButton
-          onClick={handleConnectWallet}
-          className='wallet-modal__button--second'
-          variant='default'
-          text={t('common.txt_walletconnect')}
-          prefixIcon={<img src={WalletConnectLogo} />}
-          afterIcon={<img src={NextIcon} />}
-        /> */}
+
       </div>
     </div>
   );
@@ -148,21 +193,26 @@ const ModalConnectWallet = () => {
       {connectedWalletType === WALLET_CONNECT
         ? renderWalletConnectContent()
         : isEthereum
-        ? renderLoadingContent()
-        : renderMetamaskNotFoundContent()}
+          ? renderLoadingContent()
+          : renderMetamaskNotFoundContent()}
     </div>
   );
 
   return (
-    <Modal
-      visible={isShowConnectModal || isConnectingWallet}
-      onClose={handleCloseModalConnectWallet}
-      showCloseIcon={isShowConnectModal || !isEthereum}
-      wrapClassName='connect-wallet-modal'
-    >
-      {isShowConnectModal ? renderConnectWallet() : renderNoMetamask()}
-    </Modal>
+    <div>
+      <Modal
+        visible={isShowConnectModal || isConnectingWallet}
+        onClose={handleCloseModalLogin}
+        showCloseIcon={isShowConnectModal || !isEthereum}
+        wrapClassName='connect-wallet-modal'
+      >
+        {isShowConnectModal ? renderConnectWallet() : renderNoMetamask()}
+      </Modal>
+      <EmailLogin visibleEmail={visibleEmail} handleCloseLogintByEmail={handleCloseLogintByEmail} initialValuesEmail={initialValuesEmail} />
+      <ModalSignUp isVisibleSignUp={isVisibleSignUp} handleCloseModalSignUp={handleCloseModalSignUp} />
+    </div>
+
   );
 };
 
-export default ModalConnectWallet;
+export default ModalLogin;

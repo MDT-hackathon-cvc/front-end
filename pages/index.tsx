@@ -13,6 +13,10 @@ import homepageServices from 'services/homepage';
 import { checkSuccessRequest } from 'services/api';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import eventServices from 'services/event';
+import Outstanding from '@components//pages/home/Outstanding';
+import DigitalArtworkNFT from '@components//pages/home/DigitalArtworkNFT';
+import Blog from '@components//pages/home/Blog';
+import Collection from '@components//pages/home/Collection';
 
 const Home = ({ events }: { events: any }) => {
   const router = useRouter();
@@ -24,6 +28,10 @@ const Home = ({ events }: { events: any }) => {
         <PublicLayout>
           <div className='home-page'>
             <Banner />
+            <Outstanding />
+            <DigitalArtworkNFT />
+            <Collection />
+            <Blog />
           </div>
         </PublicLayout>
       ) : (

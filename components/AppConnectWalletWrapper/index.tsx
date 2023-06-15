@@ -4,7 +4,7 @@ import noop from 'lodash/noop';
 
 import showMessage from '../Message';
 import ModalWrongNetwork from '../Modal/ModalWrongNetwork';
-import ModalConnectWallet from '../Modal/ModalConnectWallet';
+import ModalLogin from '../Modal/ModalLogin';
 import ModalKyc from '../Modal/ModalKyc';
 
 import selectedAddress from 'redux/address/selector';
@@ -263,7 +263,7 @@ const AppConnectWalletWrapper: FC<{
     <>
       {children}
       <ModalWrongNetwork />
-      <ModalConnectWallet />
+      <ModalLogin />
       {chekStatusKYC && authenticationToken && cancelKyc === false && !listKyc?.[address]?.showPopupKycAgain && (
         <ModalKyc />
       )}

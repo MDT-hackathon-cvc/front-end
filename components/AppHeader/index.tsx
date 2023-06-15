@@ -35,19 +35,9 @@ const Header: React.FC<HeaderProps> = () => {
           </div>
           {!isMobile ? (
             <div className='items'>
-              <AppLink href={routeURLs.HOME}>{t('home.txt_events')}</AppLink>
-              <AppLink href={'#'}>
-                <div className='locking'>
-                  {t('home.txt_locking')}
-                  <div className='collab'>
-                    {t('home.txt_collab_with')}
-                    {'  '}
-                    <img src={AppIcon} className='app-header__collab-icon' />
-                  </div>
-                </div>
-              </AppLink>
-              <AppLink href={'#'}>{t('home.txt_landing_page')}</AppLink>
-              <DocsDropdown />
+              <AppLink href={routeURLs.HOME}>{t('home.txt_home')}</AppLink>
+              <AppLink href={routeURLs.HOME}>{t('home.txt_discovery')}</AppLink>
+              <AppLink href={'#'}>{t('home.txt_activity')}</AppLink>
             </div>
           ) : (
             <></>

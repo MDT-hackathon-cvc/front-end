@@ -14,23 +14,29 @@
         @media screen and (max-width: $breakpoint_tablet_max) {
           padding: 25px;
         }
+
         img {
           margin-bottom: 32px;
         }
+
         .desc {
           margin-bottom: 0;
         }
       }
     }
   }
+
   &.proceed {
     text-align: center;
+
     .ant-modal-content {
       .ant-modal-body {
         padding: 48px 54px;
+
         @media screen and (max-width: $breakpoint_tablet_max) {
           padding: 25px;
         }
+
         .group-button {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -40,12 +46,15 @@
       }
     }
   }
+
   &.detail {
     text-align: center;
+
     .ant-modal-body {
       @media screen and (max-width: $breakpoint_tablet_max) {
         padding: 25px;
       }
+
       .ant-image {
         max-width: 100%;
         margin-bottom: 20px;
@@ -55,6 +64,7 @@
         padding-top: 100%;
         position: relative;
         background-color: $color_mirage;
+
         img {
           position: absolute;
           top: 50%;
@@ -65,18 +75,22 @@
           border-radius: 3px;
         }
       }
+
       .content {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         .item {
           display: flex;
           align-items: center;
           font-weight: 500;
           line-height: 21px;
+
           .label {
             color: $color_teak;
           }
+
           .value {
             color: $color_white;
           }
@@ -100,18 +114,19 @@
     position: relative;
     padding: 50px 75px;
 
-    > .modal-close-icon {
+    >.modal-close-icon {
       position: absolute;
       right: 12px;
       top: 12px;
     }
 
     .title {
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 500;
       line-height: 28px;
       color: $color_teak;
       margin-bottom: 12px;
+      text-align: center;
     }
 
     .desc {
@@ -119,6 +134,7 @@
       line-height: 21px;
       color: $color_iron;
       margin-bottom: 24px;
+
       .ant-typography-expand {
         font-weight: 300;
         line-height: 21px;
@@ -136,4 +152,37 @@
 
 .cursor--init {
   cursor: initial;
+}
+
+.verify-account-content {
+  .decs {
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  .content-verify {
+    display: flex;
+    justify-content: center;
+
+    .otp-form {
+      width: 47px !important;
+      height: 60px;
+      background: #323232;
+      border: 1px solid #3F3F3F;
+      border-radius: 10px;
+      margin: 12px;
+      color: #fff;
+      font-size: 24px;
+    }
+    .list-step {
+      &__item {
+        font-weight: 400;
+        font-size: 14px;
+        color: #DCD4D1;
+        list-style: initial;
+      }
+    }
+  }
 }

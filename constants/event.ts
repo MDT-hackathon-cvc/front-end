@@ -4,10 +4,7 @@ export enum EventStatus {
   END = 3,
   DRAFT = 4,
 }
-export const EVENT_FIELD = {
-  QUANTITY: 'quantity',
-  CATEGORY: 'category',
-};
+
 export const EVENT_TYPE_VALUE = {
   PUBLIC: 'public',
   WHITELIST: 'whitelist',
@@ -20,30 +17,6 @@ export const EVENT_STATUS_VALUE = {
   CANCEL: 5,
 };
 
-export const EVENT_STATUS_OPTION = [
-  {
-    value: 1,
-    name: 'event_list.txt_live',
-  },
-  {
-    value: 2,
-    name: 'event_list.txt_comingSoon',
-  },
-  {
-    value: 3,
-    name: 'event_list.txt_ended',
-  },
-];
-export const EVENT_TYPE_OPTION = [
-  {
-    value: 'whitelist',
-    name: 'event_list.txt_whitelist',
-  },
-  {
-    value: 'public',
-    name: 'event_list.txt_public',
-  },
-];
 export const NFT_ACTIVITIES_FIELDS = {
   KEYWORD: 'keyword',
   STATUS: 'status',

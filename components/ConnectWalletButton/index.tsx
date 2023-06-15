@@ -19,7 +19,7 @@ const ConnectWalletButton = ({ className }: ConnectWalletButtonProps) => {
 
   return (
     <AppButton
-      text={t('common.txt_connect_wallet')}
+      text={t('common.txt_login')}
       onClick={handleShowConnectModal}
       className={classNames('connect-wallet__button', className)}
     />
