@@ -145,6 +145,20 @@ $color_secondary_button: $color_white;
     }
   }
 
+  &--dark {
+    color: $color_white;
+    border: 1px solid $color_blue_bayoux;
+    background: transparent !important;
+    &:focus,
+    &:active,
+    &:hover {
+      color: $color_white;
+      background: transparent !important;
+      border-color: $color_blue_bayoux;
+      opacity: 0.8;
+    }
+  }
+
   &--transparent {
     background-color: transparent;
     color: $color_iron;

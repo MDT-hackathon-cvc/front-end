@@ -54,7 +54,7 @@ const MyApp = ({ Component, pageProps }: any) => {
 
   const getLayout = Component.getLayout ?? ((page: any) => page);
 
-  useGetAppConfig();
+  // useGetAppConfig();
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;

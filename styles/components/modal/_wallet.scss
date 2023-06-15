@@ -46,7 +46,7 @@
 
         .sub-note {
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           font-weight: 300;
           font-size: 14px;
           color: $color_iron;
@@ -55,6 +55,9 @@
 
           &__image {
             padding-right: 10px;
+          }
+          strong {
+            font-weight: bold;
           }
 
           a {
@@ -88,6 +91,7 @@
             justify-content: space-between;
             align-items: center;
             background: $color_hibiscus;
+            margin-bottom: 10px;
 
             @media screen and (max-width: $breakpoint_tablet_max) {
               height: 60px;

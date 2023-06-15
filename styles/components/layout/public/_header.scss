@@ -32,7 +32,6 @@
         margin-left: 40px;
         min-width: 600px;
         display: flex;
-        justify-content: space-between;
         align-items: baseline;
         text-transform: uppercase;
         font-weight: 300;
@@ -44,9 +43,14 @@
         }
 
         a {
-          font-size: 13px;
-          color: white;
-          font-weight: 300;
+          font-size: 16px;
+          font-weight: 700;
+          margin-right: 24px;
+          color: #848C9C;
+
+          &:hover {
+            color: white;
+          }
         }
 
         .locking {

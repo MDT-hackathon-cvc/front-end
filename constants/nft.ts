@@ -14,21 +14,21 @@ export const NFT_STANDARD = [
 ];
 
 export const ACTIVITIES_TYPE = [
-  { value: 'erc-721', label: 'common.txt_hero' },
-  { value: 'erc-1155', label: 'common.txt_item' },
+  { value: 'erc-721', label: 'common.txt_owners' },
+  { value: 'erc-1155', label: 'common.txt_offer' },
 ];
 
 export const NFT_TABS = {
-  HERO: {
-    key: 'HERO',
-    label: 'home.txt_heroes',
-    type: 'Hero',
-    query: 'hero',
+  OWNERS: {
+    key: 'OWNERS',
+    label: 'home.txt_owners',
+    type: 'Owners',
+    query: 'Owners',
   },
-  ITEM: {
-    key: 'ITEM',
-    label: 'home.txt_items',
-    type: 'Item',
+  OFFER: {
+    key: 'OFFER',
+    label: 'home.txt_offer',
+    type: 'Offer',
     query: 'item',
   },
 };

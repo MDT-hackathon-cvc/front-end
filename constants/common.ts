@@ -68,6 +68,16 @@ export enum TYPE_LOGIN {
   USER = 'user',
 }
 
+export const DEFAULT_EMAIL_SIGNUP_VALUE = {
+  username: "",
+  email: "",
+  password: ""
+}
+export const DEFAULT_EMAIL_LOGIN_VALUE = {
+  email: "",
+  password: ""
+}
+
 export const TYPE_NOTICE = {
   N1: 'N1',
   N2: 'N2',

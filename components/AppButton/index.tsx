@@ -2,7 +2,7 @@ import React, { MouseEventHandler, ReactNode } from 'react';
 import { Button } from 'antd';
 import classNames from 'classnames';
 
-declare const ButtonVarients: ['default', 'primary', 'link', 'secondary', 'transparent', 'light'];
+declare const ButtonVarients: ['default', 'primary', 'link', 'secondary', 'transparent', 'light', 'dark'];
 declare type ButtonVarient = typeof ButtonVarients[number];
 
 type AppButtonProps = {

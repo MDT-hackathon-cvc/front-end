@@ -7,6 +7,7 @@ export const routeURLs = {
   LANDING_PAGE: '/',
   MY_ACTIVITIES: '/my-activities',
   ACCOUNT: '/my-account',
+  COLLECTION: '/collection',
 
   MY_ACCOUNT: '/my-account',
   PAGE_404: '/404',
@@ -17,6 +18,7 @@ export const renderURLs = {
   LANDING_PAGE: () => routeURLs.LANDING_PAGE,
   MY_ACCOUNT: () => routeURLs.MY_ACCOUNT,
   ACCOUNT: () => routeURLs.ACCOUNT,
+  COLLECTION: () => routeURLs.COLLECTION,
   MY_ACTIVITIES: (query: string) => `${routeURLs.MY_ACTIVITIES}?${PAGE_TAB_QUERY}=${query}`,
   LINK_REFERRAL: (address: string) => `${routeURLs.HOME}?addressReferrer=${address}`,
 

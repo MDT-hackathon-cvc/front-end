@@ -8,6 +8,7 @@ import MediaPlayer from '@components//MediaPlayer';
 import { NFT_MEDIA } from 'constants/nft';
 import { useAppSelector } from 'hooks/useStore';
 import selectorNft from 'redux/nft/selector';
+import NftTopImage2 from 'public/images/Rectangle_727.png';
 
 const ModelViewer = dynamic(() => import('@components//ModalViewer'), { ssr: false });
 
@@ -42,7 +43,13 @@ const NFTContent = () => {
     }
   };
 
-  return renderContent();
+  // return renderContent();
+  return (
+    <div className='media__audio'>
+      {<img src={NftTopImage2} className='image' />}
+      <MediaPlayer src={contentSrc} wrapperClassName='audio' controllerClassName='controller' isVideo={false} />
+    </div>
+  );
 };
 
 export default NFTContent;
