@@ -56,6 +56,25 @@ export const FORMAT_DATETIME_PICKER = 'DD/MM/YYYY HH:mm:ss';
 export const MAX_NFT_CODE_LENGTH = 10;
 export const PAGE_TAB_QUERY = 'tab';
 
+export const IMAGE_TYPE = 'image/png';
+
+export const FILE_BINARY_SIZE = 1024;
+
+export const IMAGE_MEDIUM_SIZE = {
+  WIDTH: 300,
+  HEIGHT: 300,
+};
+
+export const IMAGE_SMALL_SIZE = {
+  WIDTH: 50,
+  HEIGHT: 50,
+};
+export const UPLOAD_STATUS = {
+  DONE: 'done',
+  ERROR: 'error',
+  OK: 'ok',
+};
+
 export const TAB_PANE = {
   INVENTORY: 'inventory',
   REFERRAL: 'referral',

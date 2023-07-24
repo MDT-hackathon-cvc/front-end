@@ -31,12 +31,15 @@ import router, { useRouter } from 'next/router';
 import EyeIcon from 'public/svg/EyeIcon';
 import OwnersTab from './OwnersTab';
 import OfferTab from './OfferTab';
+import PaymentModal from '@components//Payment';
 
 const { Paragraph, Title } = Typography;
-const { OFFER,OWNERS} = NFT_TABS;
+const { OFFER, OWNERS } = NFT_TABS;
 
-const Info = () => {
+const Info = ({dataNftDetail}: any) => {
   const { t } = useTranslation();
+  const [isModalPayment, setIsModalPayment] = useState(false);
+
   const [activeTab, setActiveTab] = useState({
     tab: OWNERS.query,
     isClick: false,
@@ -59,25 +62,21 @@ const Info = () => {
       content: <OfferTab />,
     },
   ];
+
+  const handleOpenPayment = () => setIsModalPayment(true);
+  const handleClosePayment = () => setIsModalPayment(false);
+
   return (
     <Fragment>
       <div className='nft-detail-content'>
         <div className='nft-detail-head'>
-          <Title level={4} className='title-collection'>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing</Title>
-          <div className='nft-detail-evaluate'>
-            <span>
-            <EyeIcon /> 500
-            </span>
-          </div>
+          <Title level={4} className='title-collection'>{dataNftDetail[0]?.name}</Title>
         </div>
         <div className='feature'>
           <span className='feature-item-unlock'>
             <img src='' alt='' />
-            <span>UNLOCKABLE CONTENT</span>
+            <span>{dataNftDetail[0]?.status}</span>
           </span>
-          <span className='feature-item'>Soul Dragon</span>
-          <span className='feature-item'>Soul Dragon</span>
-          <span className='feature-item'>Soul Dragon</span>
         </div>
         <div className='avatar'>
           <Avatar
@@ -86,17 +85,17 @@ const Info = () => {
           />
           <div className='avatar-info'>
             <p>Collection</p>
-            <p>Lunacy Icewar</p>
+            <p>{dataNftDetail[0]?.name}</p>
           </div>
         </div>
-        <p className='statistical'>Edition 1/30 - 2.5% royalties </p>
+        <p className='statistical'>{dataNftDetail[0]?.description}</p>
         <div className='price'>
-          <span>13,000 N1</span>
+          <span>{dataNftDetail[0]?.totalBurned} N1</span>
           <span className='price-item'>~$1,600</span>
         </div>
         <div className='gr-btn'>
-          <Button className='btn-buy'>Buy Now</Button>
-          <Button className='btn-offer'>Make Offer</Button>
+          <Button className='btn-buy' onClick={handleOpenPayment}>Mint</Button>
+          <Button className='btn-offer'>Push On Sale</Button>
         </div>
         <div>
           <AppTab
@@ -106,6 +105,7 @@ const Info = () => {
             className='my-activities-page-tab container'
           />
         </div>
+        <PaymentModal isModalPayment={isModalPayment} handleClosePayment={handleClosePayment} dataNftDetail={dataNftDetail}/>
       </div>
     </Fragment>
   );

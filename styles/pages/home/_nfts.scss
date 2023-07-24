@@ -4,7 +4,8 @@
 
     .media__audio {
       position: relative;
-
+      max-height: 600px;
+      overflow: hidden;
       .image {
         width: 100%;
       }
@@ -29,6 +30,7 @@
           font-size: 24px;
           color: #FFFFFF;
           padding-right: 10px;
+          margin-bottom: 1rem;
         }
       }
 
@@ -91,7 +93,7 @@
 
       .gr-btn {
         display: flex;
-
+        margin: 1rem 0;
         .btn-buy {
           background: #DD4460;
           border-radius: 3px;
@@ -121,9 +123,11 @@
           align-items: center;
           justify-content: space-between;
           cursor: pointer;
+
           .owners-item-content {
             display: flex;
             align-items: center;
+
             .owners-info {
               padding-left: 12px;
 
@@ -158,4 +162,62 @@
       }
     }
   }
+}
+
+.payment-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: #FFFFFF !important;
+}
+
+.modal-payment {
+  color: #FFFFFF;
+
+  .payment-content {
+    width: 100%;
+    .payment-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+
+      .payment-item-content {
+        display: flex;
+
+        p {
+          max-width: 178px;
+        }
+      }
+
+      &__title {
+        font-weight: 700;
+      }
+
+      &__price span {
+        color: #C6CBD8;
+        font-size: 14px;
+      }
+    }
+    .payment-form__input {
+      .field{
+        display: flex;
+      }
+    }
+
+    .payment-discount {
+      .ant-select-selector {
+        width: 100%;
+
+      }
+    }
+
+    .payment-btn {
+      width: 100%;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
 }

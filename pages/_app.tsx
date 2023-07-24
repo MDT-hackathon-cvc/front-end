@@ -74,7 +74,7 @@ const MyApp = ({ Component, pageProps }: any) => {
   const { isMaintenance } = useGetConfig();
   const [queryClient] = useState(() => new QueryClient());
   // const queryClient = new QueryClient();
-
+  
   return (
     <QueryClientProvider client={queryClient} contextSharing={true}>
       <Web3ReactProvider getLibrary={LIBRARY_CONSTANTS.getLibrary}>

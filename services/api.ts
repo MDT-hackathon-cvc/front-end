@@ -62,6 +62,10 @@ const checkErrorNetwork = (err: any) => {
 
 export const excludeResponse = ['empty_response'];
 
+export const checkSusscessRequest = (response: any) => {
+  return response?.status < HTTP_STATUS_CONTSTANTS.ERROR;
+};
+
 const checkErrorStatus = (
   response: any,
   options?: {
@@ -83,6 +87,23 @@ const checkErrorStatus = (
   return response;
 };
 
+const checkErrorStatusImg = (
+  response: any,
+  options?: {
+    isHideErrorMessage?: any;
+  },
+) => {
+  if (response?.status >= HTTP_STATUS_CONTSTANTS.ERROR && !excludeResponse.includes(response?.data?.code)) {
+    if (HTTP_STATUS_CONTSTANTS.SERVER_ERROR !== response?.data?.code) {
+      !options?.isHideErrorMessage &&
+      showMessage(typeOfMessage.ERROR, "Image is Error !")
+    } else {
+      !options?.isHideErrorMessage && showMessage(typeOfMessage.ERROR, response?.meta?.msg);
+    }
+  }
+  return response;
+};
+
 export const checkSuccessRequest = (response: any) => {
   return response?.status < HTTP_STATUS_CONTSTANTS.ERROR;
 };
@@ -92,6 +113,30 @@ const checkExpiredOrAuthorization = (response: any) => {
 };
 
 const api = {
+  postImg: (endpoint: string, params?: any, options?: any) => {
+    return axios
+      .post(getFullUrl(endpoint), params, {
+        headers: HEADERS_MULTIPLE_PART,
+        validateStatus: (status: any) => validate.validateStatus(status),
+      })
+      .then(
+        (response: any) => {
+          if (checkExpiredOrAuthorization(response)) {
+            throttledResetToLogin(endpoint, params, response);
+            return response?.data;
+          }
+         
+          return checkErrorStatusImg(response, options);
+        },
+        (err: any) => {
+          // return checkErrorStatus(err?.response, options) || checkErrorNetwork(err);
+          throw err;
+        },
+      )
+      .catch((response: any) => {        
+        return response.data;
+      });
+  },
   post: (endpoint: string, params?: any, options?: any) => {
     return axios
       .post(getFullUrl(endpoint), params, {

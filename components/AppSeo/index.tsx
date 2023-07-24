@@ -15,7 +15,7 @@ type AppSeoProps = {
 const AppSeo = ({ title, metaDescription, socialImageUrl, faviconImageUrl }: AppSeoProps) => {
   const metaDescriptionSeo = metaDescription?.substring(0, MAX_LENGTH_DESCRIPTION);
   const defaultPreviewImage = 'https://brillianz.s3.ap-southeast-1.amazonaws.com/home-user.jpg';
-  const defaultTitle = 'Brillianz Minting';
+  const defaultTitle = 'ARTSTATION';
   const defaultMetaDescription =
     'The pioneering minting platform for trusted diamond NFTs with incredible benefits from the largest ecosystem of lab-grown diamonds';
 

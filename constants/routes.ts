@@ -5,11 +5,13 @@ export const routeURLs = {
   HOME: '/',
   STAKING: '/',
   LANDING_PAGE: '/',
-  MY_ACTIVITIES: '/my-activities',
+  MY_ACTIVITIES: '/activity',
   ACCOUNT: '/my-account',
   COLLECTION: '/collection',
 
   MY_ACCOUNT: '/my-account',
+  NFT: '/nft',
+  CREATE_NFT: '/nft/create',
   PAGE_404: '/404',
 };
 
@@ -19,10 +21,12 @@ export const renderURLs = {
   MY_ACCOUNT: () => routeURLs.MY_ACCOUNT,
   ACCOUNT: () => routeURLs.ACCOUNT,
   COLLECTION: () => routeURLs.COLLECTION,
+  CREATE_NFT: () => routeURLs.CREATE_NFT,
+
   MY_ACTIVITIES: (query: string) => `${routeURLs.MY_ACTIVITIES}?${PAGE_TAB_QUERY}=${query}`,
   LINK_REFERRAL: (address: string) => `${routeURLs.HOME}?addressReferrer=${address}`,
 
-  NFT_DETAIL: (id: any) => routeURLs.HOME,
+  NFT_DETAIL: (id: string | number) => `${routeURLs.NFT}/${id}`,
 };
 
 export const EXTERNAL_URL = {

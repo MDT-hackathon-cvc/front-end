@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = () => {
             <div className='items'>
               <AppLink href={routeURLs.HOME}>{t('home.txt_home')}</AppLink>
               <AppLink href={routeURLs.HOME}>{t('home.txt_discovery')}</AppLink>
-              <AppLink href={'#'}>{t('home.txt_activity')}</AppLink>
+              <AppLink href={routeURLs.MY_ACTIVITIES}>{t('home.txt_activity')}</AppLink>
             </div>
           ) : (
             <></>

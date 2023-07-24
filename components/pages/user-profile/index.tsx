@@ -143,7 +143,7 @@ const UserProfile = () => {
 
                     <div className='kyc-box'>
                       <div className='kyc-status'>{renderKycStatus(kycStatus)}</div>
-                      {isMobile &&
+                      {/* {isMobile &&
                         kycStatus &&
                         (kycStatus === KYCStatus.UNVERIFIED || kycStatus === KYCStatus.REJECTED) && (
                           <KycButton
@@ -151,7 +151,7 @@ const UserProfile = () => {
                             text={<span>{t('user_profile.txt_submit_kyc')}</span>}
                             refetch={onGetUserProfile?.refetch}
                           />
-                        )}
+                        )} */}
                     </div>
                   </div>
                 </Col>
@@ -161,7 +161,7 @@ const UserProfile = () => {
               {!isMobile && (
                 <Row className='info_referral_button'>
                   <Col>
-                    {kycStatus && (kycStatus === KYCStatus.UNVERIFIED || kycStatus === KYCStatus.REJECTED) && (
+                    {/* {kycStatus && (kycStatus === KYCStatus.UNVERIFIED || kycStatus === KYCStatus.REJECTED) && (
                       <KycButton
                         className='info_referral_button_submit-kyc'
                         text={<span>{t('user_profile.txt_submit_kyc')}</span>}
@@ -175,7 +175,7 @@ const UserProfile = () => {
                         text={t('user_profile.txt_get_referral_link')}
                         variant='link'
                       />
-                    )}
+                    )} */}
                   </Col>
                 </Row>
               )}

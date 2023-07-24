@@ -48,7 +48,7 @@ const ModalWrongNetwork: FC<ModalWrongNetworkProps> = ({}) => {
         <p className='title'>{t('common.network_notice_title')}</p>
         <span
           dangerouslySetInnerHTML={{
-            __html: t('common.txt_wrong_network_content', { networkName: 'Polygon Mainnet' }),
+            __html: t('common.txt_wrong_network_content', { networkName: 'CVC' }),
           }}
           className='sub-title'
         />

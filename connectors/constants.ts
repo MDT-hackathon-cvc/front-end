@@ -11,16 +11,21 @@ export enum SupportedChainId {
   ETH_MAINNET = 1,
   POLYGON = 80001,
   POLYGON_MAINNET = 137,
+  CVC_TESTNET =5555
 }
-export const SUPPORTED_CHAIN_IDS: SupportedChainId[] = [SupportedChainId.POLYGON];
+export const SUPPORTED_CHAIN_IDS: SupportedChainId[] = [SupportedChainId.CVC_TESTNET];
 
 export const LIST_POLYGON_TESTNET = [
-  'https://rpc-mumbai.maticvigil.com',
-  'https://polygontestapi.terminet.io/rpc',
-  'https://polygon-testnet.public.blastapi.io',
-  'https://rpc.ankr.com/polygon_mumbai',
-  'https://matic-mumbai.chainstacklabs.com',
+  // 'https://rpc-mumbai.maticvigil.com',
+  // 'https://polygontestapi.terminet.io/rpc',
+  // 'https://polygon-testnet.public.blastapi.io',
+  // 'https://rpc.ankr.com/polygon_mumbai',
+  // 'https://matic-mumbai.chainstacklabs.com',
 ];
+
+export const LIST_CVC_TESTNET = [
+  'https://rpc-kura.cross.technology/'
+]
 
 export const LIST_NETWORK_RPC_MAINNET: any = {
   [SupportedChainId.BSC_MAINNET]: 'https://bsc-dataseed.binance.org/',
@@ -30,7 +35,7 @@ export const LIST_NETWORK_RPC_MAINNET: any = {
 
 export const LIST_NETWORK_RPC_TESTNET: any = {
   [SupportedChainId.BSC]: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-  [SupportedChainId.POLYGON]: connector.randomRPCTestnet(LIST_POLYGON_TESTNET),
+  [SupportedChainId.CVC_TESTNET]: connector.randomRPCTestnet(LIST_CVC_TESTNET),
   [SupportedChainId.ETH]: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
 };
 

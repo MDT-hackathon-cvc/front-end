@@ -9,6 +9,8 @@ import Erc20ABI from 'constants/abi/erc20abi.json';
 import Erc721ABI from 'constants/abi/erc721abi.json';
 import ExchangeABI from 'constants/abi/exchange.json';
 import ProxyABI from 'constants/abi/proxy.json';
+import NFTMarketplace from 'constants/abi/NFTMarketplace.json';
+
 import { WALLET_STATUS } from 'constants/common';
 import { NFT_STANDARD, NFT_TRANSACTION_STATUS } from 'constants/nft';
 import { ethers } from 'ethers';
@@ -244,11 +246,11 @@ export default class BaseWalletService {
     onContractError?: (data: any) => void;
     onUpdateTransactionHash?: (hash: string) => void;
   }) => {
-    const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', ProxyABI, library, account);
+    const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', NFTMarketplace.abi, library, account);
     let response;
 
     try {
-      response = await contract.buy(...data);
+      response = await contract.buy(data.orderId, data.buyAmount);
 
       if (response?.hash) {
         if (isSecondary) {
@@ -271,6 +273,107 @@ export default class BaseWalletService {
     }
   };
 
+  // MINT NFT TODO
+  mintNFT = async ({
+    account,
+    library,
+    data,
+    onCancelMetamask,
+    onCallback,
+    onError,
+  }: {
+    account?: string;
+    library?: any;
+    data?: Array<any> | any;
+    onCancelMetamask?: () => void;
+    onCallback?: (hash: any) => void;
+    onError?: () => void;
+  }) => {
+
+    const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', NFTMarketplace.abi, library, account);
+    console.log(data)
+
+    try {
+      const response = await contract.mint(data.collection, data.id, data.amount, data.uri);
+      console.log("response: ", response, onCallback);
+      if (response?.hash) {
+        onCallback && onCallback({hash: response.hash})
+      }
+    } catch (error: any) {
+      if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
+        onCancelMetamask && onCancelMetamask();
+      } else {
+        console.log(error)
+        onError && onError();
+      }
+    }
+  };
+
+  // PUT ON SALE NFT TODO
+  putOnSaleNFT = async ({
+    account,
+    library,
+    data,
+    onCancelMetamask,
+    onCallback,
+    onError,
+  }: {
+    account?: string;
+    library?: any;
+    data?: Array<any> | any;
+    onCancelMetamask?: () => void;
+    onCallback?: (hash?: any) => void;
+    onError?: () => void;
+  }) => {
+
+    const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', NFTMarketplace.abi, library, account);
+
+    try {
+      const response = await contract.createOrder(data.collection, data.tokenId, data.amount, data.paymentToken, data.price);
+      console.log("createOrder: ", response);
+
+    } catch (error: any) {
+      if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
+        onCancelMetamask && onCancelMetamask();
+      } else {
+        onError && onError();
+      }
+    }
+  };
+
+  // CANCEL SALE ORDER 
+  cancelSaleOrder = async ({
+    account,
+    library,
+    data,
+    onCancelMetamask,
+    onCallback,
+    onError,
+  }: {
+    account?: string;
+    library?: any;
+    data?: Array<any> | any;
+    onCancelMetamask?: () => void;
+    onCallback?: (hash?: any) => void;
+    onError?: () => void;
+  }) => {
+
+    const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', NFTMarketplace.abi, library, account);
+
+    try {
+      const response = await contract.cancelOrder(data.id);
+      console.log("cancelOrder: ", response);
+
+    } catch (error: any) {
+      if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
+        onCancelMetamask && onCancelMetamask();
+      } else {
+        onError && onError();
+      }
+    }
+  };
+
+  // Todo: Remove
   cancelSellOrder = async ({
     account,
     library,
@@ -379,94 +482,4 @@ export default class BaseWalletService {
     }
   };
 
-  createRedeem = async ({
-    account,
-    library,
-    data,
-    onCancelMetamask,
-    onCallback,
-    onServerError,
-    onContractError,
-    onUpdateTransactionHash,
-  }: {
-    account?: string;
-    library?: any;
-    data?: Array<any> | any;
-    onCancelMetamask?: () => void;
-    onCallback?: (data?: any) => void;
-    onServerError?: () => void;
-    onContractError?: (data: any) => void;
-    onUpdateTransactionHash?: (hash: string) => void;
-  }) => {
-    const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', ProxyABI, library, account);
-
-    let response;
-
-    try {
-      response = await contract.submitRedemption(...data);
-
-      console.log(response, 'hasnd');
-
-      if (response?.hash) {
-        onUpdateTransactionHash && onUpdateTransactionHash(response?.hash);
-        const receipt = await response.wait();
-        if (receipt?.status) {
-          onCallback && onCallback({ hash: receipt?.transactionHash, status: SUCCESS });
-        } else {
-          onContractError && onContractError({ hash: receipt?.transactionHash, status: FAILED });
-        }
-      }
-    } catch (error: any) {
-      console.log(error, 'errorerror');
-      if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
-        onCancelMetamask && onCancelMetamask();
-      } else {
-        onContractError && onContractError({ hash: response?.hash, status: FAILED, message: JSON.stringify(error) });
-        onServerError && onServerError();
-      }
-    }
-  };
-
-  cancelRedeem = async ({
-    account,
-    library,
-    data,
-    onCancelMetamask,
-    onCallback,
-    onContractError,
-    onUpdateTransactionHash,
-  }: {
-    account?: string;
-    library?: any;
-    data?: Array<any> | any;
-    onCancelMetamask?: () => void;
-    onCallback?: (data?: any) => void;
-    onContractError?: (data: any) => void;
-    onUpdateTransactionHash?: (hash: string) => void;
-  }) => {
-    const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', ProxyABI, library, account);
-
-    let response;
-
-    try {
-      response = await contract.cancelRedemption(...data);
-
-      if (response?.hash) {
-        onUpdateTransactionHash && onUpdateTransactionHash(response?.hash);
-        const receipt = await response.wait();
-        if (receipt?.status) {
-          onCallback && onCallback({ hash: receipt?.transactionHash, status: SUCCESS });
-        } else {
-          onContractError && onContractError({ hash: receipt?.transactionHash, status: FAILED });
-        }
-      }
-    } catch (error: any) {
-      console.log(error, 'errorerror');
-      if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
-        onCancelMetamask && onCancelMetamask();
-      } else {
-        onContractError && onContractError({ hash: response?.hash, status: FAILED, message: JSON.stringify(error) });
-      }
-    }
-  };
 }

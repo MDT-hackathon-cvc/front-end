@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 import omit from 'lodash/omit';
 
 import selectedAddress from 'redux/address/selector';
@@ -8,7 +8,7 @@ import selectedConnection from 'redux/connection/selector';
 import { useAppDispatch, useAppSelector } from 'hooks/useStore';
 
 import nftServices from 'services/nft';
-import { checkSuccessRequest } from 'services/api';
+import { checkSuccessRequest, checkSusscessRequest } from 'services/api';
 import transactionServices from 'services/transaction';
 
 import { routeURLs } from 'constants/routes';
@@ -20,9 +20,11 @@ import {
   NFT_ACTIVITIES_FIELD_SORTER,
   NFT_OWNED_FIELDS,
 } from 'constants/nft';
-import { useQuery, UseQueryResult } from 'react-query';
+import { useMutation, useQuery, UseQueryResult } from 'react-query';
 import { getNftDetailSuccess } from 'redux/nft/slice';
 import { get } from 'lodash';
+import TYPE_CONSTANTS from 'constants/type';
+import showMessage from '@components//Message';
 
 const { ORDER, FIELD, ASC, DESC } = ORDERS;
 const { DEFAULT_PAGE } = LENGTH_CONSTANTS;
@@ -41,6 +43,42 @@ const {
 } = NFT_ACTIVITIES_FIELD_SORTER;
 
 const { MINT_DATE, EVENT_NAME, DEFAULT } = NFT_OWNED_FIELDS;
+
+export const useGetListNFTs = () => {
+  const { address } = useAppSelector(selectedAddress.getAddress);
+  const [total, setTotal] = useState(ZERO_VALUE);
+  const [listNfts, setListNfts] = useState([]);
+
+  const handleGetListNFTs = async () => {
+
+    try {
+
+      const response = await nftServices.handleGetList();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const useFetchListNFTs: any = useQuery(['getListNft', address], handleGetListNFTs, {
+    refetchOnWindowFocus: false,
+    onSuccess: (res) => {
+      const { docs = [], totalDocs = 0, summary = [] } = get(res, 'data');
+
+      setListNfts(docs);
+      setTotal(totalDocs);
+    },
+  });
+
+  const { isLoading } = useFetchListNFTs;
+
+  return {
+    listNfts: listNfts,
+    total,
+    loading: isLoading,
+    data: useFetchListNFTs.data,
+  };
+};
 
 export const useGetNftDetail = (id: string) => {
   const dispatch = useAppDispatch();
@@ -77,6 +115,39 @@ export const useGetNftDetail = (id: string) => {
   return {
     loading: isLoading,
     useQueryGetDetailNft: useQueryGetDetailNft,
+    data: useQueryGetDetailNft.data
+  };
+};
+export const useMintNFT = () => {
+  const router = useRouter();
+
+  const handleMintNFT = useMutation(
+    async (params: any) => {
+
+      const paramMint = {
+        totalSupply: params?.totalSupply, hash:params?.hash
+      }
+      try {
+        const response = await nftServices.handleMintNft(params?.id, paramMint);
+        return { response };
+      } catch (error) {
+        throw error;
+      }
+    },
+    {
+      onSuccess: (res: any) => {
+        if (checkSusscessRequest(res?.response)) {
+
+          showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, res?.isSellOrder ? 'message.S5' : 'message.S2');
+          // router.push(renderURLs.NFT_DETAIL(idNft));
+        }
+      },
+    },
+  );
+
+  return {
+    onMintNFT: handleMintNFT.mutate,
+    loadingMint: handleMintNFT.isLoading
   };
 };
 
@@ -311,7 +382,7 @@ export const useCreateTransaction = () => {
       } else {
         onError && onError();
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return {
@@ -333,7 +404,7 @@ export const useUpdateTransaction = () => {
         }
       } else {
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return {

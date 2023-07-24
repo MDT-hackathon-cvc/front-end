@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import moment from 'moment';
 
-import { EMPTY_DEFAULT_TEXT, MAX_NFT_CODE_LENGTH, ZERO_VALUE } from 'constants/common';
+import { EMPTY_DEFAULT_TEXT, IMAGE_TYPE, MAX_NFT_CODE_LENGTH, ZERO_VALUE } from 'constants/common';
 import LENGTH_CONSTANTS from 'constants/length';
-import { ANTD_ORDERS, MAX_LENGTH_PRICE, ORDERS } from 'constants/nft';
+import { ANTD_ORDERS, EXTENSION_3D_SUPPORT_ARRAY, MAX_LENGTH_PRICE, NFT_MEDIA, ORDERS } from 'constants/nft';
 import { EVENT_STATUS_VALUE } from 'constants/event';
 
 declare let window: any;
@@ -220,4 +220,22 @@ export const compareEvent = (firstEvent: any, secondEvent: any) => {
   if (secondEvent.status === EVENT_STATUS_VALUE.COMING_SOON) {
     return 1;
   }
+};
+
+export const get3DFileType = (fileName: string) => {
+  const extension = fileName?.slice(fileName?.lastIndexOf('.') + 1)?.toLowerCase() || '';
+  const type = `3d/${extension}`;
+  if (EXTENSION_3D_SUPPORT_ARRAY.includes(type)) {
+    return type;
+  }
+  return '';
+};
+
+export const getFullFormatedNFT = (value: any) => {
+  return value?.fileList?.[0]?.type || get3DFileType(value?.fileList?.[0]?.name) || IMAGE_TYPE;
+};
+
+export const getFormatedNFT = (value: any) => {
+  const fullFormat = getFullFormatedNFT(value);
+  return fullFormat?.split('/')[0] || NFT_MEDIA.IMAGE;
 };

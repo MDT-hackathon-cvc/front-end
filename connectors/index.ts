@@ -20,6 +20,7 @@ import {
   LIST_NETWORK_RPC_TESTNET,
   METAMASK_DEEPLINK,
   SupportedChainId,
+  LIST_CVC_TESTNET,
 } from './constants';
 import TYPE_CONSTANTS from 'constants/type';
 
@@ -121,5 +122,5 @@ export const connectorsByName: any = {
 };
 
 export const NETWORK_URLS = {
-  [SupportedChainId.POLYGON]: LIST_POLYGON_TESTNET[0],
+  [SupportedChainId.CVC_TESTNET]: LIST_CVC_TESTNET[0],
 };

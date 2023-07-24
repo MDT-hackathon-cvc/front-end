@@ -14,7 +14,7 @@ const ModelViewer = dynamic(() => import('@components//ModalViewer'), { ssr: fal
 
 const { AUDIO, VIDEO, MODEL, IMAGE } = NFT_MEDIA;
 
-const NFTContent = () => {
+const NFTContent = ({ dataNftDetail }: any) => {
   const nftDetail = useAppSelector(selectorNft.getNftDetail);
 
   const nftFormat = nftDetail?.media?.type || IMAGE;
@@ -46,8 +46,8 @@ const NFTContent = () => {
   // return renderContent();
   return (
     <div className='media__audio'>
-      {<img src={NftTopImage2} className='image' />}
-      <MediaPlayer src={contentSrc} wrapperClassName='audio' controllerClassName='controller' isVideo={false} />
+      <img src={dataNftDetail[0]?.ipfsImage} className='image' />
+      {/* <MediaPlayer src={contentSrc} wrapperClassName='audio' controllerClassName='controller' isVideo={false} /> */}
     </div>
   );
 };

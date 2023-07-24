@@ -351,7 +351,16 @@
     "txt_help_action_redeem": "Only items minted for at least 365 days is redeemable into diamonds",
     "txt_information": "Information"
   },
-  
+  "nft_create": {
+    "txt_title":"Create NFT",
+    "txt_name":"Name",
+    "txt_description": "Descriptions",
+    "txt_trait_type":"Trait Type",
+    "txt_value": "Value",
+    "txt_create": "Create",
+    "txt_drag_and_drop": "Drag and Drop file or",
+    "txt_upload_media": "Upload from your Device"
+  },  
   "my_activities": {
     "txt_my_activities": "My Activities",
     "txt_purchase_history": "Purchase History",

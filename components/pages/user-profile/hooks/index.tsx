@@ -4,12 +4,14 @@ import { useQuery } from 'react-query';
 import { storeGlobal } from 'redux/configStore';
 import { handleGetProfile } from 'redux/page/slice';
 import accountServices from 'services/account';
-import { checkSuccessRequest } from 'services/api';
+import { checkSuccessRequest, getToken } from 'services/api';
 
 export const useGetUserProfile = (token: string) => {
   const [userProfile, setUserProfile] = useState<any>(null);
 
   const handleGetUserProfile = async () => {
+    getToken(token);
+
     return token !== '' ? await accountServices.getUserProfile() : null;
   };
 
