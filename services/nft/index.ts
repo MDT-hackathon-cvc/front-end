@@ -30,6 +30,18 @@ class NFTServices {
   handleListForSaleNFT = (id: string, data: any) => {
     return api.post(`nfts/${id}/sale-orders`, data);
   };
+
+  handleCreateNFT = (data: any) => {
+    return api.post(`nfts`, data);
+  };
+  handleUploadImg = (file: any) => {
+    return api.postImg(`nfts/ipfs`, file);
+  };
+  handleMintNft = (id: string, data: any) => {
+    console.log("data: ",data);
+    
+    return api.put(`nfts/mint/${id}`, data);
+  };
 }
 
 const nftServices = new NFTServices();

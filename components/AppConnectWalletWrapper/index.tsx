@@ -96,6 +96,8 @@ const AppConnectWalletWrapper: FC<{
 
     if (account && isConnectingWallet) {
       setUpAddress();
+      console.log("thu 2");
+      
     }
   }, [account, isConnectingWallet]);
 
@@ -264,9 +266,9 @@ const AppConnectWalletWrapper: FC<{
       {children}
       <ModalWrongNetwork />
       <ModalLogin />
-      {chekStatusKYC && authenticationToken && cancelKyc === false && !listKyc?.[address]?.showPopupKycAgain && (
+      {/* {chekStatusKYC && authenticationToken && cancelKyc === false && !listKyc?.[address]?.showPopupKycAgain && (
         <ModalKyc />
-      )}
+      )} */}
     </>
   );
 };

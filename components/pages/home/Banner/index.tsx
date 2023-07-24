@@ -73,9 +73,7 @@ const Banner = () => {
               <Col md={11} sm={20}>
                 <div className='intro'>
                   <h1 className='brillianz-minting-title'>
-                    {t('home.txt_brilli_part')}
-                    <span>{t('home.txt_a_part')}</span>
-                    {t('home.txt_nz_minting_part')}
+                    ARTSTATION
                   </h1>
                   <div className='text'>{t('home.txt_banner_text')}</div>
                   <AppLink href={routeURLs.HOME}>

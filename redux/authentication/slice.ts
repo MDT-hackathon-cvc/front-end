@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { KEY_STORAGE } from 'constants/common';
+import Cookies from 'js-cookie';
 
 export interface Authentication {
   authenticationToken: string;

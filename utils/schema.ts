@@ -1,12 +1,13 @@
 import { TFunction } from 'next-i18next';
-import { number, object } from 'yup';
+import { number, object, string } from 'yup';
 
 import { formatCurrency } from 'utils';
 
-import { BUY_FIELD, LIST_FOR_SALE_FIELD } from 'constants/nft';
+import { BUY_FIELD, DEFAULT_INIT, LIST_FOR_SALE_FIELD } from 'constants/nft';
 
 const { QUANTITY: buyQuantity } = BUY_FIELD;
 const { QUANTITY: listForSaleQuantity, UNIT_PRICE: listForSaleUnitPrice } = LIST_FOR_SALE_FIELD;
+const { TRAIT_TYPE, VALUE, DESCRIPTION, IPFS_URL, NAME, FILE } = DEFAULT_INIT;
 
 export const getBuySchema = (t: TFunction, maxQuantity: number) => {
   return object().shape({
@@ -17,6 +18,27 @@ export const getBuySchema = (t: TFunction, maxQuantity: number) => {
         maxQuantity,
         t('message.E17', {
           number: formatCurrency(maxQuantity),
+        }),
+      ),
+  });
+};
+
+export const createNftSchema = (t: TFunction, maxQuantity: number) => {
+  return object().shape({
+    [NAME]: string()
+      .required(t('message.E1', { field: t('nft_create.txt_name') }))
+      .max(
+        maxQuantity,
+        t('message.E8', {
+          number: formatCurrency(maxQuantity),
+        }),
+      ),
+      [DESCRIPTION]: string()
+      .required(t('message.E1', { field: t('nft_create.txt_description') }))
+      .max(
+        4000,
+        t('message.E8', {
+          number: formatCurrency(4000),
         }),
       ),
   });

@@ -12,7 +12,7 @@ import { walletConnect } from 'connectors';
 import { METAMASK, WALLET_CONNECT } from 'connectors/constants';
 import { KEY_STORAGE, TAB_PANE } from 'constants/common';
 import { KYCStatus, USER_TYPE } from 'constants/my-account';
-import { renderURLs } from 'constants/routes';
+import { renderURLs, routeURLs } from 'constants/routes';
 import { useAppDispatch, useAppSelector } from 'hooks/useStore';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'next-i18next';
@@ -100,38 +100,22 @@ const Desktop = () => {
         <div className='item header-overlay__address border-bottom-none'>
           <AppAddress address={address} addressClassName='text' />
         </div>
-        {kycStatus === KYCStatus.UNVERIFIED && (
+        {/* {kycStatus === KYCStatus.UNVERIFIED && (
           <KycButton
             className='item header-overlay__submit-kyc border-bottom-none'
             text={<span>{t('home.txt_submit_kyc')}</span>}
             refetch={onGetUserProfile?.refetch}
           />
-        )}
+        )} */}
         <AppLink href={{ pathname: renderURLs.ACCOUNT(), query: { tabPane: TAB_PANE.INVENTORY } }}>
           <div className='item'>
             <span>{t('home.txt_account')}</span>
           </div>
         </AppLink>
-        <AppLink href={{ pathname: renderURLs.ACCOUNT(), query: { tabPane: TAB_PANE.INVENTORY } }}>
+       
+        <AppLink href={routeURLs.CREATE_NFT}>
           <div className='item'>
-            <span>{t('home.txt_inventory')}</span>
-          </div>
-        </AppLink>
-        {kycStatus === KYCStatus.VERIFIED && (
-          <AppLink href={{ pathname: renderURLs.ACCOUNT(), query: { tabPane: TAB_PANE.REFERRAL } }}>
-            <div className='item'>
-              <span>{t('home.txt_referral')}</span>
-            </div>
-          </AppLink>
-        )}
-        <AppLink href={{ pathname: renderURLs.ACCOUNT(), query: { tabPane: TAB_PANE.REDEMPTION } }}>
-          <div className='item'>
-            <span>{t('home.txt_redemption')}</span>
-          </div>
-        </AppLink>
-        <AppLink href={{ pathname: renderURLs.ACCOUNT(), query: { tabPane: TAB_PANE.PURCHASE_HISTORY } }}>
-          <div className='item'>
-            <span>{t('home.txt_history')}</span>
+            <span>{t('nft_create.txt_title')}</span>
           </div>
         </AppLink>
         <div className='item border-bottom-none' onClick={handleDisconnect}>

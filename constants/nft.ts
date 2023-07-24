@@ -8,6 +8,40 @@ export const MAX_LENGTH_PRICE = 12;
 export const NFT_DECIMAL_SCALE_PRICE = 18;
 export const MAX_VALUE_TOTAL_COPIES = 1000000;
 
+export const MAX_FILE_NUMBER = 1;
+export const MAX_FILE_SIZE = 100;
+export const MAX_PREVIEW_SIZE = 2;
+export const LIST_PREVIEW_SUPPORT_FILE = ['image/png', 'image/jpeg', 'image/svg+xml', 'image/gif'];
+
+export const LIST_SUPPORT_FILE = [
+  'image/png',
+  'image/jpeg',
+  'image/svg+xml',
+  'image/gif',
+  'audio/mpeg',
+  'audio/ogg',
+  'audio/wav',
+  'audio/webm',
+  'video/ogg',
+  'video/mp4',
+  'video/webm',
+  '3d/glb',
+];
+export const NFT_DEFAULT_CREATE_FIELD = {
+  FILE: 'file',
+  FILE_PREVIEW: 'filePreview',
+  NAME: 'name',
+  ROYALTYFEE: 'royaltyFee',
+  TOTAL_SUPPLY: 'totalSupply',
+  DESCRIPTION: 'description',
+  IS_PUT_ON_SALE: 'isPutOnSale',
+  QUANTITY: 'quantity',
+  UNIT_PRICE: 'unitPrice',
+  CURRENCY: 'currency',
+  IMAGE_MEDIUM: 'imageMedium',
+  IMAGE_SMALL: 'imageSmall',
+};
+
 export const NFT_STANDARD = [
   { value: 'erc-721', key: 0, label: 'common.txt_erc_721' },
   { value: 'erc-1155', key: 1, label: 'common.txt_erc_1155' },
@@ -17,6 +51,16 @@ export const ACTIVITIES_TYPE = [
   { value: 'erc-721', label: 'common.txt_owners' },
   { value: 'erc-1155', label: 'common.txt_offer' },
 ];
+export const DEFAULT_INIT = {
+  NAME: 'name',
+  DESCRIPTION: 'description',
+  ATTRIBUTES: 'attributes',
+  TRAIT_TYPE:'trait_type',
+  VALUE:'value',
+  IPFS_URL: 'ipfsUrl',
+  FILE: 'file'
+}
+export const EXTENSION_3D_SUPPORT_ARRAY = ['3d/glb'];
 
 export const NFT_TABS = {
   OWNERS: {
@@ -31,22 +75,6 @@ export const NFT_TABS = {
     type: 'Offer',
     query: 'item',
   },
-};
-
-export const LOCALIZATION_NFT_CREATION_ATTRIBUTE = {
-  mythology: {
-    text: 'home.txt_mythology',
-  },
-  level: {
-    text: 'home.txt_level',
-  },
-  class: {
-    text: 'home.txt_class',
-  },
-} as any;
-
-export const SERVER_PARAMS_CONFIG = {
-  ATTRIBUTES: 'attributes',
 };
 
 export const NFT_STATUS = [
@@ -108,6 +136,8 @@ export const LIST_FOR_SALE_FIELD = {
   TOKEN_ID: 'tokenId',
   CURRENCY: 'currency',
   TYPE: 'type',
+  AMOUNT: 'amount',
+
 };
 
 export const ATTRIBUTE_EXCLUDE = ['type', 'god'];

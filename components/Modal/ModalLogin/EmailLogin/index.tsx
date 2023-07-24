@@ -19,7 +19,7 @@ interface EmailLoginProp {
 const EmailLogin = ({ visibleEmail, handleCloseLogintByEmail, initialValuesEmail }: EmailLoginProp) => {
   const { t } = useTranslation();
 
-  const handleSumbit = (values: any) => { console.log("submit", values); }
+  const handleSubmit = (values: any) => { console.log("submit", values); }
   return (
     <Modal
       visible={visibleEmail}
@@ -30,7 +30,7 @@ const EmailLogin = ({ visibleEmail, handleCloseLogintByEmail, initialValuesEmail
       <div>
         <p className='title'>{t('common.txt_login_email')}</p>
         <Formik
-          onSubmit={handleSumbit}
+          onSubmit={handleSubmit}
           initialValues={initialValuesEmail}
         // validationSchema={}
         >

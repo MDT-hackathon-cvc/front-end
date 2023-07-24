@@ -1,64 +1,16 @@
+import { useGetListNFTs } from '@components//pages/nft/hooks';
 import { Col, Row } from 'antd';
+import { renderURLs } from 'constants/routes';
 import Link from 'next/link';
-import React, { useRef } from 'react';
-import NftTopImage1 from 'public/images/Rectangle_729.png';
 import NftTopImage2 from 'public/images/Rectangle_727.png';
+import NftTopImage1 from 'public/images/Rectangle_729.png';
 import Usdt from 'public/svg/ustd_token.svg';
+import { useRef } from 'react';
 import Countdown, { zeroPad } from 'react-countdown';
 
-const data = [
-  {
-    name: "Dead Dragon Bone",
-    img: NftTopImage2,
-    price: "13,000 N1",
-    priceSell: "~$1,600"
-  },
-  {
-    name: "Dead Dragon Bone",
-    img: NftTopImage1,
-    price: "13,000 N1",
-    priceSell: "~$1,600"
-  },
-  {
-    name: "Dead Dragon Bone",
-    img: NftTopImage2,
-    price: "13,000 N1",
-    priceSell: "~$1,600"
-  },
-  {
-    name: "Dead Dragon Bone",
-    img: NftTopImage1,
-    price: "13,000 N1",
-    priceSell: "~$1,600"
-  },
-  {
-    name: "Dead Dragon Bone",
-    img: NftTopImage2,
-    price: "13,000 N1",
-    priceSell: "~$1,600"
-  },
-  {
-    name: "Dead Dragon Bone",
-    img: NftTopImage1,
-    price: "13,000 N1",
-    priceSell: "~$1,600"
-  },
-  {
-    name: "Dead Dragon Bone",
-    img: NftTopImage2,
-    price: "13,000 N1",
-    priceSell: "~$1,600"
-  },
-  {
-    name: "Dead Dragon Bone",
-    img: NftTopImage1,
-    price: "13,000 N1",
-    priceSell: "~$1,600"
-  }
-]
-const DigitalArtworkForm = () => {
+const DigitalArtworkForm = ({ data }: any) => {
   const timeRef = useRef<any>(null);
-
+  // const { data: dataNft } = useGetListNFTs();
   const addSeconds = (numOfHours: number, date: Date) => {
     date.setTime(date.getTime() + numOfHours * 1000);
     return date;
@@ -79,14 +31,15 @@ const DigitalArtworkForm = () => {
     );
   };
 
-  const CommonDigital = ({digitalVal, key}: any) => {
+  const CommonDigital = ({ digitalVal, key }: any) => {
+
     return (
       <Col xs={24} md={8} lg={6} key={key}>
-        <Link href="/nft/0009102">
+        <Link href={renderURLs.NFT_DETAIL(digitalVal?._id)}>
           <a>
             <div className='digitalArtwork-content'>
               <div className='digitalImg'>
-                <img src={digitalVal?.img} alt='' />
+                <img src={digitalVal?.ipfsImage || NftTopImage2} alt='' />
               </div>
               <div className='digitalArtwork-info'>
                 <div className='highest-bid'>
@@ -100,12 +53,12 @@ const DigitalArtworkForm = () => {
                     <span className='price-item'>{digitalVal?.priceSell || 0}</span>
                   </div>
                 </div>
-                <Countdown
+                {/* <Countdown
                   date={addSeconds(5, new Date())}
                   renderer={renderer}
                   onComplete={onComplete}
                   ref={timeRef}
-                />
+                /> */}
               </div>
             </div>
           </a>
@@ -116,7 +69,7 @@ const DigitalArtworkForm = () => {
   return (
     <div className='digitalArtwork-card'>
       <Row gutter={24}>
-        {data?.map((val,index) => (
+        {data?.map((val: any, index: number) => (
           <CommonDigital digitalVal={val} key={index} />
         ))}
       </Row>
