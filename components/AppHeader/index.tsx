@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = () => {
           {!isMobile ? (
             <div className='items'>
               <AppLink href={routeURLs.HOME}>{t('home.txt_home')}</AppLink>
-              <AppLink href={routeURLs.HOME}>{t('home.txt_discovery')}</AppLink>
+              <AppLink href={routeURLs.NFT}>{t('home.txt_myNft')}</AppLink>
               <AppLink href={routeURLs.MY_ACTIVITIES}>{t('home.txt_activity')}</AppLink>
             </div>
           ) : (
@@ -46,7 +46,11 @@ const Header: React.FC<HeaderProps> = () => {
 
         {!isMaintenance && (
           <div className='app-header__toogle'>
-            {isConnected && <Notification />}
+            {isConnected && <div className='app-header__action'><AppLink href={routeURLs.CREATE_NFT}>
+              <div className='item'>
+                {t('nft_create.txt_title')}
+              </div>
+            </AppLink> <Notification /></div>}
             {isMobile ? <Mobile /> : <Desktop />}
           </div>
         )}

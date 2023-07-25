@@ -80,6 +80,42 @@ export const useGetListNFTs = () => {
   };
 };
 
+export const useGetListOwnerNFTs = () => {
+  const { address } = useAppSelector(selectedAddress.getAddress);
+  const [total, setTotal] = useState(ZERO_VALUE);
+  const [listNfts, setListNfts] = useState([]);
+
+  const handleGetListOwnerNFTs = async () => {
+
+    try {
+
+      const response = await nftServices.handleGetOwnerListNft();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const useFetchListNFTs: any = useQuery(['getOwnerNft', address], handleGetListOwnerNFTs, {
+    refetchOnWindowFocus: false,
+    onSuccess: (res) => {
+      const { docs = [], totalDocs = 0, summary = [] } = get(res, 'data');
+
+      setListNfts(docs);
+      setTotal(totalDocs);
+    },
+  });
+
+  const { isLoading } = useFetchListNFTs;
+
+  return {
+    listNfts: listNfts,
+    total,
+    loading: isLoading,
+    data: useFetchListNFTs.data,
+  };
+};
+
 export const useGetNftDetail = (id: string) => {
   const dispatch = useAppDispatch();
   const handleGetNftDetailQuery: any = async () => {
@@ -140,6 +176,7 @@ export const useMintNFT = () => {
 
           showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, res?.isSellOrder ? 'message.S5' : 'message.S2');
           // router.push(renderURLs.NFT_DETAIL(idNft));
+          router.reload();
         }
       },
     },
@@ -147,7 +184,7 @@ export const useMintNFT = () => {
 
   return {
     onMintNFT: handleMintNFT.mutate,
-    loadingMint: handleMintNFT.isLoading
+    loadingMint: handleMintNFT.isLoading,
   };
 };
 

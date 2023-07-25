@@ -94,8 +94,8 @@ const Info = ({dataNftDetail}: any) => {
           <span className='price-item'>~$1,600</span>
         </div>
         <div className='gr-btn'>
-          <Button className='btn-buy' onClick={handleOpenPayment}>Mint</Button>
-          <Button className='btn-offer'>Push On Sale</Button>
+          <Button className='btn-buy' disabled={dataNftDetail[0]?.status === "MINTED"} onClick={handleOpenPayment}>Mint</Button>
+          <Button className='btn-offer'>Put On Sale</Button>
         </div>
         <div>
           <AppTab
