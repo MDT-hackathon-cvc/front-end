@@ -10,6 +10,9 @@ class NFTServices {
   handleGetList = () => {
     return api.get('nfts');
   };
+  handleGetOwnerListNft = () => {
+    return api.get('nfts/owner');
+  };
 
   handleGetNftDetail = (id: string) => {
     return api.get(`nfts/${id}`);
@@ -38,8 +41,6 @@ class NFTServices {
     return api.postImg(`nfts/ipfs`, file);
   };
   handleMintNft = (id: string, data: any) => {
-    console.log("data: ",data);
-    
     return api.put(`nfts/mint/${id}`, data);
   };
 }

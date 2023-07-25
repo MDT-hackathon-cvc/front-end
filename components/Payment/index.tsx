@@ -44,11 +44,9 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
       data,
       onCallback: (response: any) => onMintNFT({
         id: dataNftDetail[0]?._id,
-        totalSupply: Number(values?.[AMOUNT]),
+        totalSupply: 1,
         hash: response?.hash
       }),
-      // onCancelMetamask: handleCloseMintedModal,
-      // onError: handleMintedError,
     });
   };
 
@@ -57,12 +55,11 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
       data: {
         collection: "0xa751768ca19C804f24F4b6229D5c4930E1596de7",
         id: `0x${dataNftDetail[0]?._id}`,
-        amount: Number(values?.[AMOUNT]),
+        amount: 1,
         uri: dataNftDetail[0]?.ipfsImage,
       },
     };
 
-    console.log(param)
     handleApproveMinted(param?.data, values)
     handleClosePayment()
 
@@ -94,14 +91,7 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
                         <Avatar shape="square" size={64} icon={<img src={NftTopImage1} alt='' />} />
                       </div>
                     </Col>
-                    <Col xs={24} className='payment-item'>
-                      <span className='payment-item__title'>Price</span>
-                      <div className='payment-item__price'>
-                        <p>13,000 N1</p>
-                        <span className='price-item'>~$1,600</span>
-                      </div>
-                    </Col>
-                    <Col xs={24} className='list-for-sale-modal-form'>
+                    {/* <Col xs={24} className='list-for-sale-modal-form'>
                       <FormItem
                         containerClassName='payment-form__input'
                         typeInput={TYPE_INPUT.NUMBER}
@@ -120,28 +110,26 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
                         }
                         isAllowed={limitMaxlengNumber(MAX_LENGTH_TOTAL_SUPPLY)}
                       />
-                    </Col>
+                    </Col> */}
                     <Col xs={24} className='payment-item'>
                       <span className='payment-item__title'>Subtotal</span>
                       <div className='payment-item__price'>
-                        <p>13,000 N1</p>
-                        <span className='price-item'>~$1,600</span>
+                        <p>1</p>
                       </div>
                     </Col>
                     <Col xs={24} className='payment-item'>
-                      <span className='payment-item__title'>Discount amount</span>
+                      <span className='payment-item__title'>Amount</span>
                       <div className='payment-item__price'>
-                        <p>13,000 N1</p>
-                        <span className='price-item'>~$1,600</span>
+                        <p>1</p>
                       </div>
                     </Col>
-                    <Col xs={24} className='payment-item'>
+                    {/* <Col xs={24} className='payment-item'>
                       <span className='payment-item__title'>You will pay</span>
                       <div className='payment-item__price'>
                         <p>13,000 N1</p>
                         <span className='price-item'>~$1,600</span>
                       </div>
-                    </Col>
+                    </Col> */}
                     <div className='payment-btn'>
                       <AppButton
                         htmlType='submit'

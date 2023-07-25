@@ -3,6 +3,7 @@ import React from 'react';
 import NftTopImage2 from 'public/images/Rectangle_727.png';
 import NftTopImage1 from 'public/images/Rectangle_729.png';
 import { Typography } from 'antd';
+import { useGetListOwnerNFTs } from '@components//pages/nft/hooks';
 
 const { Title } = Typography;
 
@@ -57,13 +58,16 @@ const data = [
     }
   ]
 const ListNft = () => {
+  const { data: dataNft } = useGetListOwnerNFTs();
+
+  const dataAllNft = dataNft?.data?.docs || []
   return (
     <div className='nft-ListNft-page'>
       <div className='nft-ListNft-page__wrapper'>
         <div className='container'>
           <Title level={4} className='title-ListNft'>List NFT</Title>
 
-          <DigitalArtworkForm data={data}/>
+          <DigitalArtworkForm data={dataAllNft}/>
         </div>
       </div>
     </div>

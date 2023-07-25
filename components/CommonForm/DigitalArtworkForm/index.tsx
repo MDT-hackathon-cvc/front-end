@@ -35,11 +35,11 @@ const DigitalArtworkForm = ({ data }: any) => {
 
     return (
       <Col xs={24} md={8} lg={6} key={key}>
-        <Link href={renderURLs.NFT_DETAIL(digitalVal?._id)}>
+        <Link href={digitalVal?.nfts ? renderURLs.NFT_DETAIL(digitalVal?.nfts?._id) : renderURLs.NFT_DETAIL(digitalVal?._id)}>
           <a>
             <div className='digitalArtwork-content'>
               <div className='digitalImg'>
-                <img src={digitalVal?.ipfsImage || NftTopImage2} alt='' />
+                <img src={digitalVal?.ipfsImage || digitalVal?.nfts?.ipfsImage} alt='' />
               </div>
               <div className='digitalArtwork-info'>
                 <div className='highest-bid'>

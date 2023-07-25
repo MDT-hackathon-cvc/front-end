@@ -35,18 +35,18 @@ const data = [
   }
 ]
 const DigitalArtworkNFT = () => {
-  // const { data: dataNft } = useGetListNFTs();
+  const { data: dataNft } = useGetListNFTs();
 
-  // const dataAllNft = dataNft?.data?.docs?.filter((dtNft: any, index: number) => index < 8) || []
+  const dataAllNft = dataNft?.data?.docs?.filter((dtNft: any, index: number) => index < 8) || []
 
   return (
     <div className='digitalArtwork-home'>
       <div className='container'>
         <div className='digitalArtwork-head'>
           <Title level={4} className='title-digitalArtwork'>Digital Artwork NFT</Title>
-          <Link href={routeURLs.NFT}>Browse all</Link>
+          <Link href={"#"}>Browse all</Link>
         </div>
-        <DigitalArtworkForm data={[]} />
+        <DigitalArtworkForm data={dataAllNft} />
       </div>
     </div>
   )

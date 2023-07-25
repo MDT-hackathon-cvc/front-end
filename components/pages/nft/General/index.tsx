@@ -9,7 +9,6 @@ import { useGetNftDetail } from '@components//pages/nft/hooks';
 
 const General = () => {
   const routes = useRouter();
-  console.log(routes.query.id);
 
   const { data }: any = useGetNftDetail(routes?.query?.id as string);
   const dataNftById: any = data?.data?.docs || [];
