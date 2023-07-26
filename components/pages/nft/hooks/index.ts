@@ -174,7 +174,7 @@ export const useMintNFT = () => {
       onSuccess: (res: any) => {
         if (checkSusscessRequest(res?.response)) {
 
-          showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, res?.isSellOrder ? 'message.S5' : 'message.S2');
+          showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'message.S6');
           // router.push(renderURLs.NFT_DETAIL(idNft));
           router.reload();
         }
@@ -187,6 +187,41 @@ export const useMintNFT = () => {
     loadingMint: handleMintNFT.isLoading,
   };
 };
+
+export const usePutOnSaleNFT = () => {
+  const router = useRouter();
+
+  const handlePutOnSaleNFT = useMutation(
+    async (params: any) => {
+
+      const paramPutOnSale = {
+        totalSupply: params?.totalSupply, hash:params?.hash
+      }
+      try {
+        const response = await nftServices.handlePutOnSaleNft(params?.id, paramPutOnSale);
+        return { response };
+      } catch (error) {
+        throw error;
+      }
+    },
+    {
+      onSuccess: (res: any) => {
+        if (checkSusscessRequest(res?.response)) {
+
+          showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'message.S7');
+          // router.push(renderURLs.NFT_DETAIL(idNft));
+          router.reload();
+        }
+      },
+    },
+  );
+
+  return {
+    onPutOnSaleNFT: handlePutOnSaleNFT.mutate,
+    loadingPutOnSale: handlePutOnSaleNFT.isLoading,
+  };
+};
+
 
 export const useGetOwned = (id: string, params?: any, options?: any) => {
   const [data, setData] = useState([]);

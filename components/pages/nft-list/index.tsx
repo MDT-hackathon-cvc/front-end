@@ -65,7 +65,7 @@ const ListNft = () => {
     <div className='nft-ListNft-page'>
       <div className='nft-ListNft-page__wrapper'>
         <div className='container'>
-          <Title level={4} className='title-ListNft'>List NFT</Title>
+          <Title level={4} className='title-ListNft'>My NFT</Title>
 
           <DigitalArtworkForm data={dataAllNft}/>
         </div>

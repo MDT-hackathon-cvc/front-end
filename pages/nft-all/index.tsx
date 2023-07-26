@@ -6,10 +6,11 @@ import PublicLayout from '@components//Layout/Public';
 
 import ListNft from '@components//pages/nft-list';
 import withServerSideProps from 'hoc/withServerSideProps';
+import ListNftAll from '@components//pages/nft-all';
 
 export const NftDetailContext = createContext({});
 
-const NftList = () => {
+const NftListAll = () => {
   const {
     query: { id },
   } = useRouter() as any;
@@ -19,11 +20,11 @@ const NftList = () => {
 
   return (
     <PublicLayout>
-      <ListNft />
+      <ListNftAll />
     </PublicLayout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = withServerSideProps((context: any) => context);
 
-export default NftList;
+export default NftListAll;

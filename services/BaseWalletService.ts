@@ -3,7 +3,7 @@ import { AddressZero } from '@ethersproject/constants';
 import { Contract } from '@ethersproject/contracts';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import BigNumber from 'bignumber.js';
-import { MAX_ALLOWANCE } from 'connectors/constants';
+import { DEFAULT_RPC721, MAX_ALLOWANCE } from 'connectors/constants';
 import Erc1155ABI from 'constants/abi/erc1155abi.json';
 import Erc20ABI from 'constants/abi/erc20abi.json';
 import Erc721ABI from 'constants/abi/erc721abi.json';
@@ -291,13 +291,11 @@ export default class BaseWalletService {
   }) => {
 
     const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', NFTMarketplace.abi, library, account);
-    console.log(data)
 
     try {
       const response = await contract.mint(data.collection, data.id, data.amount, data.uri);
-      console.log("response: ", response, onCallback);
       if (response?.hash) {
-        onCallback && onCallback({hash: response.hash})
+        onCallback && onCallback({ hash: response.hash })
       }
     } catch (error: any) {
       if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
@@ -329,9 +327,71 @@ export default class BaseWalletService {
     const contract = getContract(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS || '', NFTMarketplace.abi, library, account);
 
     try {
+      
       const response = await contract.createOrder(data.collection, data.tokenId, data.amount, data.paymentToken, data.price);
       console.log("createOrder: ", response);
 
+    } catch (error: any) {
+      console.log(error)
+      if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
+        onCancelMetamask && onCancelMetamask();
+      } else {
+        onError && onError();
+      }
+    }
+  };
+
+  setApprovalForAllNft = async ({
+    account,
+    library,
+    approved,
+    onCancelMetamask,
+    onError,
+  }: {
+    account?: string;
+    library?: any;
+    onCancelMetamask?: () => void;
+    onError?: () => void;
+    approved?: boolean;
+  }) => {
+
+    const contract = getContract(DEFAULT_RPC721 || '', Erc721ABI.output.abi, library, account);
+
+    try {
+
+      await contract.setApprovalForAll(process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS, approved);
+
+    } catch (error: any) {
+      console.log(error);
+
+      if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
+        onCancelMetamask && onCancelMetamask();
+      } else {
+        onError && onError();
+      }
+    }
+  };
+
+  isApprovedForAll = async ({
+    account,
+    library,
+    onCancelMetamask,
+    onCallback,
+    onError,
+  }: {
+    account?: string;
+    library?: any;
+    onCancelMetamask?: () => void;
+    onCallback?: (hash?: any) => void;
+    onError?: () => void;
+  }) => {
+
+    const contract = getContract(DEFAULT_RPC721 || '', Erc721ABI.output.abi, library, account);
+
+    try {
+
+      const response = await contract.isApprovedForAll(account, process.env.NEXT_PUBLIC_APP_PROXY_ADDRESS);
+      return response;
     } catch (error: any) {
       if (WALLET_STATUS.CANCEL_METAMASK === error?.code) {
         onCancelMetamask && onCancelMetamask();

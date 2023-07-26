@@ -137,7 +137,7 @@ export const LIST_FOR_SALE_FIELD = {
   CURRENCY: 'currency',
   TYPE: 'type',
   AMOUNT: 'amount',
-
+  PRICE: 'price',
 };
 
 export const ATTRIBUTE_EXCLUDE = ['type', 'god'];

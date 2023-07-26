@@ -176,6 +176,11 @@
     "S3": "<strong>{{name}}</strong> has successfully been removed from sale",
     "S4": "Approve currency successfully",
     "S5": "You have successfully cancelled redemption request {{id}}",
+    "S6": "You mint NFT successful",
+    "S7": "You put on sale NFT successful",
+    "S8": "You upload image successful",
+    "S9": "You create NFT successful",
+
     "quote": "I have just discovered an interesting event named {{eventName}}. You guys can check it out at"
   },
   "home": {
