@@ -43,8 +43,11 @@ const DigitalArtworkForm = ({ data }: any) => {
               </div>
               <div className='digitalArtwork-info'>
                 <div className='highest-bid'>
-                  <img className='icon' src={Usdt} alt="" />
-                  <span>Highest Bid 1/1</span>
+                  <div>
+                    <img className='icon' src={Usdt} alt="" />
+                    <span>Highest 1/1</span>
+                  </div>
+                  <span className='status'>{digitalVal?.status}</span>
                 </div>
                 <div className='content'>
                   <p className='title'>{digitalVal?.name}</p>

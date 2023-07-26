@@ -26,7 +26,7 @@ export const useCreateNFT = () => {
             if (checkSusscessRequest(res?.response)) {
               const idNft = get(res, 'response.data._id') || "";
 
-              showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, res?.isSellOrder ? 'message.S5' : 'message.S2');
+              showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'message.S9');
               router.push(renderURLs.NFT_DETAIL(idNft));
             }
           },
@@ -50,7 +50,7 @@ export const useCreateNFT = () => {
             if (checkSusscessRequest(res?.response)) {
               const dataRequest = get(res, 'response.data.image') || "";
               
-              showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, res?.isSellOrder ? 'message.S5' : 'message.S2');
+              showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'message.S8');
               res.onTransaction.onSuccess && res.onTransaction.onSuccess(dataRequest)
             }else {
               res.onTransaction.onError && res.onTransaction.onError();

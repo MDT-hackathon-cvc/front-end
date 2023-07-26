@@ -1,44 +1,32 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { Avatar, Button, Typography } from 'antd';
 import { useTranslation } from 'next-i18next';
-import { Avatar, Button, Col, Image, Popover, Row, Typography } from 'antd';
-import { FacebookShareButton, TelegramShareButton, TwitterShareButton } from 'react-share';
+import { Fragment, useState } from 'react';
 
-import NumberFormat from '@components//NumberFormat';
-import EllipsisText from '@components//EllipsisText';
-import AppNumber from '@components//AppNumber';
-import BuyButton from '@components//BuyButton';
-import AppButton from '@components//AppButton';
 
-import PolygonIcon from 'public/svg/polygon_icon.svg';
 
-import selectedConnection from 'redux/connection/selector';
 
 import { useAppSelector } from 'hooks/useStore';
-import { useGetConfig } from 'hooks/useGetConfig';
 
-import { formatPadStart, getLocation } from 'utils';
-import { DOLLAR_TEXT, PAGE_TAB_QUERY } from 'constants/common';
-import { NFT_PERCENTAGE_SUFFIX, NFT_STANDARD, NFT_STATUS, NFT_TABS } from 'constants/nft';
-import AppAddress from '@components//AppAddress';
-import selectorNft from 'redux/nft/selector';
-import selectedAddress from 'redux/address/selector';
-import AppLink from '@components//AppLink';
-import ReadMore from '@components//AppReadMore';
-import ItemWithLabel from '@components//ItemWithLabel';
-import NftTopImage1 from 'public/images/Rectangle_711.png';
 import AppTab from '@components//AppTab';
-import router, { useRouter } from 'next/router';
-import EyeIcon from 'public/svg/EyeIcon';
-import OwnersTab from './OwnersTab';
-import OfferTab from './OfferTab';
 import PaymentModal from '@components//Payment';
+import { NFT_TABS } from 'constants/nft';
+import NftTopImage1 from 'public/images/Rectangle_711.png';
+import selectedAddress from 'redux/address/selector';
+import OfferTab from './OfferTab';
+import OwnersTab from './OwnersTab';
+import PutOnSaleModal from '@components//PutOnSale';
+
 
 const { Paragraph, Title } = Typography;
 const { OFFER, OWNERS } = NFT_TABS;
 
-const Info = ({dataNftDetail}: any) => {
+const Info = ({ dataNftDetail }: any) => {
   const { t } = useTranslation();
   const [isModalPayment, setIsModalPayment] = useState(false);
+  const [isModalPutOnSale, setIsModalPutOnSale] = useState(false);
+
+  
+  const { address } = useAppSelector(selectedAddress.getAddress);
 
   const [activeTab, setActiveTab] = useState({
     tab: OWNERS.query,
@@ -64,7 +52,9 @@ const Info = ({dataNftDetail}: any) => {
   ];
 
   const handleOpenPayment = () => setIsModalPayment(true);
+  const handleOpenPutOnSale = () => setIsModalPutOnSale(true);
   const handleClosePayment = () => setIsModalPayment(false);
+  const handleClosePutOnSale = () => setIsModalPutOnSale(false);
 
   return (
     <Fragment>
@@ -81,7 +71,7 @@ const Info = ({dataNftDetail}: any) => {
         <div className='avatar'>
           <Avatar
             size={{ xs: 35, sm: 35, md: 35, lg: 35, xl: 40, xxl: 40 }}
-            icon={<img src={NftTopImage1} alt='' />}
+            icon={<img src={dataNftDetail[0]?.ipfsImage} alt='' />}
           />
           <div className='avatar-info'>
             <p>Collection</p>
@@ -93,10 +83,12 @@ const Info = ({dataNftDetail}: any) => {
           <span>{dataNftDetail[0]?.totalBurned} N1</span>
           <span className='price-item'>~$1,600</span>
         </div>
-        <div className='gr-btn'>
+        {address !== dataNftDetail[0]?.address ? <div className='gr-btn'>
           <Button className='btn-buy' disabled={dataNftDetail[0]?.status === "MINTED"} onClick={handleOpenPayment}>Mint</Button>
-          <Button className='btn-offer'>Put On Sale</Button>
+          <Button className='btn-offer' onClick={handleOpenPutOnSale}>Put On Sale</Button>
         </div>
+          : null
+        }
         <div>
           <AppTab
             onChangeTab={handleChangeTab}
@@ -105,7 +97,8 @@ const Info = ({dataNftDetail}: any) => {
             className='my-activities-page-tab container'
           />
         </div>
-        <PaymentModal isModalPayment={isModalPayment} handleClosePayment={handleClosePayment} dataNftDetail={dataNftDetail}/>
+        <PaymentModal isModalPayment={isModalPayment} handleClosePayment={handleClosePayment} dataNftDetail={dataNftDetail} />
+        <PutOnSaleModal isModalPutOnSale={isModalPutOnSale} handleClosePutOnSale={handleClosePutOnSale} dataNftDetail={dataNftDetail} />
       </div>
     </Fragment>
   );

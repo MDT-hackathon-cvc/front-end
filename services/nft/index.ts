@@ -43,6 +43,9 @@ class NFTServices {
   handleMintNft = (id: string, data: any) => {
     return api.put(`nfts/mint/${id}`, data);
   };
+  handlePutOnSaleNft = (id: string, data: any) => {
+    return api.put(`nfts/put-on-sale/${id}`, data);
+  };
 }
 
 const nftServices = new NFTServices();

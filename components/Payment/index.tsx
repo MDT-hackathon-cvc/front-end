@@ -18,6 +18,7 @@ import { useWeb3React } from '@web3-react/core';
 import { useMintNFT } from '@components//pages/nft/hooks';
 import AppLoading from '@components//AppLoading';
 import LoadingNFTIcon from 'public/svg/loading_nft_icon.svg';
+import { DEFAULT_RPC721 } from 'connectors/constants';
 
 interface PropsPayment {
   isModalPayment: boolean;
@@ -37,7 +38,6 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
 
   const handleApproveMinted = async (data?: any, values?: any) => {
     const wallet = new MetamaskService().getInstance();
-    console.log(address)
     await wallet.mintNFT({
       account: address,
       library,
@@ -53,7 +53,7 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
   const handleSumbit = (values: any) => {
     const param: any = {
       data: {
-        collection: "0xa751768ca19C804f24F4b6229D5c4930E1596de7",
+        collection: DEFAULT_RPC721,
         id: `0x${dataNftDetail[0]?._id}`,
         amount: 1,
         uri: dataNftDetail[0]?.ipfsImage,
@@ -88,7 +88,7 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
                       <span className='payment-item__title'>Item</span>
                       <div className='payment-item-content'>
                         <p>From the Other worlds series.﻿( Original + NFT ) #1</p>
-                        <Avatar shape="square" size={64} icon={<img src={NftTopImage1} alt='' />} />
+                        <Avatar shape="square" size={64} icon={<img src={dataNftDetail[0]?.ipfsImage} alt='' />} />
                       </div>
                     </Col>
                     {/* <Col xs={24} className='list-for-sale-modal-form'>

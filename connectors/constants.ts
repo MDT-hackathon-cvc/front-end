@@ -4,6 +4,7 @@ import EthereumLogo from 'public/svg/ethereum_logo.svg';
 
 import connector from 'utils/connector';
 
+export const DEFAULT_RPC721 = "0xa751768ca19C804f24F4b6229D5c4930E1596de7" ;
 export enum SupportedChainId {
   BSC = 97,
   BSC_MAINNET = 56,

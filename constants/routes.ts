@@ -11,6 +11,7 @@ export const routeURLs = {
 
   MY_ACCOUNT: '/my-account',
   NFT: '/nft',
+  NFT_ALL: '/nft-all',
   CREATE_NFT: '/nft/create',
   PAGE_404: '/404',
 };
