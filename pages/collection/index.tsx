@@ -12,12 +12,15 @@ import { shortenAddress } from 'utils';
 import CopyIcon from 'public/svg/copy_icon_white.svg';
 import DigitalArtworkNFT from '@components//pages/home/DigitalArtworkNFT';
 import DigitalArtworkForm from '@components//CommonForm/DigitalArtworkForm';
+import { useAppSelector } from 'hooks/useStore';
+import selectedAddress from 'redux/address/selector';
 
 
 const { Title, Paragraph } = Typography;
 
 const Collection = () => {
   const { t } = useTranslation();
+  const { address } = useAppSelector(selectedAddress.getAddress);
 
   return (
     <PublicLayout>
@@ -36,12 +39,12 @@ const Collection = () => {
             <span className='address-collection'>
               <Paragraph
                 copyable={{
-                  text: '0xe11cC58FEddFd74C9E2A929147240718a1aEa179',
+                  text: address,
                   icon: <img className='app-address__icon' src={CopyIcon} key='copy-icon' />,
                 }}
                 className='code'
               >
-                {shortenAddress('0xe11cC58FEddFd74C9E2A929147240718a1aEa179')}
+                {shortenAddress(address)}
               </Paragraph>
             </span>
             <p className='decs-collection'>

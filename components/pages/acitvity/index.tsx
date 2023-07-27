@@ -55,7 +55,7 @@ const ActivityContainer = () => {
     <div className='redemption'>
       <div className='container'>
         <div className='redemption--title'>
-          <Title level={3}>{t('redemption.redemption')}</Title>
+          <Title level={3}>{t('my_activities.txt_purchase_history')}</Title>
         </div>
         <div className='redemption--block'>
           <SearchFilter

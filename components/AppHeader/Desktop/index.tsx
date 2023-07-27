@@ -107,7 +107,7 @@ const Desktop = () => {
             refetch={onGetUserProfile?.refetch}
           />
         )} */}
-        <AppLink href={{ pathname: renderURLs.ACCOUNT(), query: { tabPane: TAB_PANE.INVENTORY } }}>
+        <AppLink href={'/'}>
           <div className='item'>
             <span>{t('home.txt_account')}</span>
           </div>

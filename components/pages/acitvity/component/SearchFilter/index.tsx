@@ -50,35 +50,35 @@ const optionsStatus = (t: TFunction) => [
 
 const options = (t: TFunction) => [
   {
-    name: t('redemption.request_date'),
+    name: t('my_activities.txt_purchase_date'),
     value: CREATED_AT,
   },
   {
-    name: t('redemption.redemption_value'),
+    name: t('my_activities.redemption_value'),
     value: TOTAL_VALUE,
   },
   {
-    name: t('redemption.request_id'),
+    name: t('my_activities.txt_nft_name'),
     value: REQUEST_ID,
   },
   {
-    name: t('redemption.redeem_code'),
+    name: t('my_activities.redeem_code'),
     value: CODE,
   },
   {
-    name: t('redemption.item_category'),
+    name: t('my_activities.item_category'),
     value: NUMBER_CATEGORIES,
   },
   {
-    name: t('redemption.status'),
+    name: t('my_activities.status'),
     value: STATUS_COLUMN,
   },
   {
-    name: t('redemption.quantity'),
+    name: t('my_activities.quantity'),
     value: QUANTITY,
   },
   {
-    name: t('redemption.action'),
+    name: t('my_activities.action'),
     value: ACTION,
     disable: true,
   },

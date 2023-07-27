@@ -58,27 +58,35 @@ export const renderStatus = (status: string, t: TFunction) => {
 
 const privateColumn = (t: any) => [
   {
-    title: t('redemption.request_date'),
+    title: t('my_activities.txt_purchase_date'),
     dataIndex: CREATED_AT,
     key: CREATED_AT,
     sorter: true,
     render: (time: any) => moment(time).format(FORMAT_DATETIME_PICKER),
   },
   {
-    title: t('redemption.request_id'),
-    dataIndex: REQUEST_ID,
-    key: REQUEST_ID,
-    sorter: true,
-  },
-  {
-    title: t('redemption.quantity'),
+    title: t('my_activities.txt_quantity'),
     dataIndex: QUANTITY,
     key: QUANTITY,
     sorter: true,
     render: (value: number | string) => <AppNumber value={value} />,
   },
   {
-    title: t('redemption.item_category'),
+    title: t('my_activities.txt_nft_name'),
+    dataIndex: REQUEST_ID,
+    key: REQUEST_ID,
+    sorter: true,
+    render: (value: number | string) => <AppNumber value={value} />,
+  },
+  {
+    title: t('my_activities.txt_price'),
+    dataIndex: QUANTITY,
+    key: QUANTITY,
+    sorter: true,
+    render: (value: number | string) => <AppNumber value={value} />,
+  },
+  {
+    title: t('my_activities.item_category'),
     dataIndex: NUMBER_CATEGORIES,
     key: NUMBER_CATEGORIES,
     sorter: true,
@@ -92,7 +100,7 @@ const privateColumn = (t: any) => [
     },
   },
   {
-    title: t('redemption.redeem_code'),
+    title: t('my_activities.redeem_code'),
     dataIndex: CODE,
     key: CODE,
     sorter: true,
@@ -113,7 +121,7 @@ const privateColumn = (t: any) => [
     },
   },
   {
-    title: t('redemption.redemption_value'),
+    title: t('my_activities.redemption_value'),
     dataIndex: TOTAL_VALUE,
     key: TOTAL_VALUE,
     sorter: true,
@@ -124,7 +132,7 @@ const privateColumn = (t: any) => [
     ),
   },
   {
-    title: t('redemption.status'),
+    title: t('my_activities.txt_status'),
     dataIndex: STATUS,
     key: STATUS,
     render: (status: string) => (
@@ -132,7 +140,7 @@ const privateColumn = (t: any) => [
     ),
   },
   {
-    title: t('redemption.action'),
+    title: t('my_activities.txt_action'),
     dataIndex: ACTION,
     key: ACTION,
     render: (id: string) => <AppLink href={'#'}>{t('common.view_detail')}</AppLink>,

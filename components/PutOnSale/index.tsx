@@ -6,7 +6,7 @@ import { Form, Formik } from 'formik';
 import AppLoading from '@components//AppLoading';
 import { usePutOnSaleNFT } from '@components//pages/nft/hooks';
 import { useWeb3React } from '@web3-react/core';
-import { DEFAULT_RPC721 } from 'connectors/constants';
+import { DEFAULT_RPC721, PAYMENT_TOKEN } from 'connectors/constants';
 import { ZERO_VALUE } from 'constants/common';
 import { LIST_FOR_SALE_FIELD } from 'constants/nft';
 import { useAppDispatch, useAppSelector } from 'hooks/useStore';
@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import selectedAddress from 'redux/address/selector';
 import MetamaskService from 'services/MetamaskService';
 import AppButton from '../AppButton';
+import { getBuySchema, getPutOnSaleSchema } from 'utils/schema';
 
 interface PropsPayment {
   isModalPutOnSale: boolean;
@@ -42,14 +43,12 @@ const PutOnSaleModal = ({ isModalPutOnSale, handleClosePutOnSale, dataNftDetail 
         account: address,
         library,
       });
-      
+
       setIsApproveListForSale(response);
     } catch (error) {
       console.log(error);
     }
   };
-
-  
 
   const handleApproveNFT = async () => {
     try {
@@ -80,14 +79,14 @@ const PutOnSaleModal = ({ isModalPutOnSale, handleClosePutOnSale, dataNftDetail 
       collection: DEFAULT_RPC721,
       tokenId: `0x${dataNftDetail[0]?._id}`,
       amount: 1,
-      paymentToken: '0x0000000000000000000000000000000000000000',
+      paymentToken: PAYMENT_TOKEN,
       price: values?.price,
     }
     handleApprovePutOnSale(data)
     handleClosePutOnSale()
 
   };
-  
+
   useEffect(() => {
     if (library && address && !isApprovedListForSale) {
       handleCheckApprovedForAll();
@@ -105,7 +104,7 @@ const PutOnSaleModal = ({ isModalPutOnSale, handleClosePutOnSale, dataNftDetail 
           <Formik
             onSubmit={handleSumbit}
             initialValues={[]}
-          // validationSchema={}
+            validationSchema={getPutOnSaleSchema(t)}
           >
             {({ setFieldValue, values, errors }) => {
 
@@ -119,17 +118,18 @@ const PutOnSaleModal = ({ isModalPutOnSale, handleClosePutOnSale, dataNftDetail 
                         <Avatar shape="square" size={64} icon={<img src={dataNftDetail[0]?.ipfsImage} alt='' />} />
                       </div>
                     </Col>
-                    <Col xs={24} className='list-for-sale-modal-form'>
-                      <FormItem
-                        containerClassName='payment-form__input'
-                        typeInput={TYPE_INPUT.NUMBER}
-                        placeholder={t('nft_detail.txt_lfs_input_quantity')}
-                        decimalScale={ZERO_VALUE}
-                        thousandSeparator
-                        name={PRICE}
-                        label={t('nft_detail.txt_lfs_quantity')}
-                      />
-                    </Col>
+                    {isApprovedListForSale &&
+                      <Col xs={24} className='list-for-sale-modal-form'>
+                        <FormItem
+                          containerClassName='payment-form__input'
+                          typeInput={TYPE_INPUT.NUMBER}
+                          placeholder={t('nft_detail.txt_lfs_input_quantity')}
+                          decimalScale={ZERO_VALUE}
+                          thousandSeparator
+                          name={PRICE}
+                          label={t('nft_detail.txt_lfs_quantity')}
+                        />
+                      </Col>}
                     <Col xs={24} className='payment-item'>
                       <span className='payment-item__title'>Subtotal</span>
                       <div className='payment-item__price'>
@@ -149,11 +149,11 @@ const PutOnSaleModal = ({ isModalPutOnSale, handleClosePutOnSale, dataNftDetail 
                           text={'Put On Sale'}
                           variant='primary'
                         />
-                     }
+                      }
                       {!isApprovedListForSale &&
                         <AppButton
                           text={'Approve'}
-                          variant='primary'
+                          variant='secondary'
                           onClick={handleApproveNFT}
                         />
                       }
