@@ -9,7 +9,10 @@ export const PAYMENT_TOKEN = "0x0000000000000000000000000000000000000000" ;
 
 export const STATUS_NFT = {
   MINTED: 'MINTED',
-  OFF_SALE: 'off-sale',
+  OFF_SALE: 'OFF-SALE',
+  ON_SALE:"ON-SALE",
+  SOLD_OUT: 'SOLD-OUT',
+  UNMINT: 'UNMINT'
 }
 export enum SupportedChainId {
   BSC = 97,

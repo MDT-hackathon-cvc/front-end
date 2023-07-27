@@ -1,7 +1,7 @@
 import AppButton from '@components//AppButton';
 import { Typography } from 'antd';
 import LENGTH_CONSTANTS from 'constants/length';
-import { REDEMPTION_LIST_FIELD } from 'constants/my-account';
+import { PURCHASE_HISTORY_LIST_FIELD } from 'constants/my-account';
 import { routeURLs } from 'constants/routes';
 import { useAppSelector } from 'hooks/useStore';
 import { useTranslation } from 'next-i18next';
@@ -11,22 +11,22 @@ import selectAuthentication from 'redux/authentication/selector';
 import SearchFilter from './component/SearchFilter';
 import TableComponent from './component/TableComponent';
 
-const { CREATED_AT, QUANTITY, TOTAL_VALUE, STATUS: STATUS_COLUMN, ACTION, REQUEST_ID } = REDEMPTION_LIST_FIELD;
+const { CREATED_AT, QUANTITY, PRICE, STATUS: STATUS_COLUMN, ACTION, ITEM_NAME,CODE,INFORMATION,NUMBER_CATEGORIES,NO } = PURCHASE_HISTORY_LIST_FIELD;
 const { DEFAULT_PAGE_SIZE, DEFAULT_PAGE } = LENGTH_CONSTANTS;
 
 const { Title } = Typography;
 const DATA_MOCK = [
   {
-    NO: 'no',
-  CREATED_AT: 'createdAt',
-  NUMBER_CATEGORIES: 'numberCategories',
-  QUANTITY: 'quantity',
-  TOTAL_VALUE: 'totalValue',
-  STATUS: 'status',
-  ACTION: 'action',
-  REQUEST_ID: 'requestId',
-  CODE: 'code',
-  INFORMATION: 'information',
+    [NO]: 'no',
+  [CREATED_AT]: 'createdAt',
+  [NUMBER_CATEGORIES]: 0,
+  [QUANTITY]: 120,
+  [PRICE]: 'totalValue',
+  [STATUS_COLUMN]: 'status',
+  [ACTION]: 'action',
+  [ITEM_NAME]: 'requestId',
+  [CODE]: 'code',
+  [INFORMATION]: 'information',
   }
 ]
 const ActivityContainer = () => {
@@ -36,10 +36,10 @@ const ActivityContainer = () => {
 
   const [paramSearch, setParamSearch] = useState({ page: DEFAULT_PAGE, limit: DEFAULT_PAGE_SIZE });
   const [currentColumn, setCurrentColumn] = useState([
-    REQUEST_ID,
+    ITEM_NAME,
     STATUS_COLUMN,
     QUANTITY,
-    TOTAL_VALUE,
+    PRICE,
     CREATED_AT,
     ACTION,
   ]);

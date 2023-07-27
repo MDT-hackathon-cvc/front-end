@@ -53,9 +53,11 @@
           padding: 16px;
           display: flex;
           justify-content: space-between;
+
           .icon {
             height: initial;
-            width: initial;
+            width: 35px;
+            border-radius: 50%;
           }
 
           span {

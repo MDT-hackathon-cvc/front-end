@@ -1,15 +1,3 @@
-export const REDEMPTION_LIST_FIELD = {
-  NO: 'no',
-  CREATED_AT: 'createdAt',
-  NUMBER_CATEGORIES: 'numberCategories',
-  QUANTITY: 'quantity',
-  TOTAL_VALUE: 'totalValue',
-  STATUS: 'status',
-  ACTION: 'action',
-  REQUEST_ID: 'requestId',
-  CODE: 'code',
-  INFORMATION: 'information',
-};
 
 export const REDEMPTION_CREATE_FIELD = {
   NAME: '_name',
@@ -79,6 +67,9 @@ export const PURCHASE_HISTORY_LIST_FIELD = {
   UNIT_PRICE: 'unitPrice',
   NO: 'no',
   SORT: 'sort',
+  STATUS: 'status',
+  CODE: 'code',
+  PRICE: "price"
 };
 
 export const PURCHASE_HISTORY_FILTER = {

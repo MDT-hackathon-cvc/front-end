@@ -1,27 +1,22 @@
 import Modal from '@components//Modal';
-import { Avatar, Typography } from 'antd';
-import NftTopImage1 from 'public/images/Rectangle_711.png';
+import { Avatar, Col, Row, Typography } from 'antd';
 import { Form, Formik } from 'formik';
-import FormItem, { TYPE_INPUT } from '@components//FormItem';
-import { Col, Row } from 'antd';
 
-import React from 'react'
-import AppButton from '../AppButton';
-import { useTranslation } from 'next-i18next';
-import { LIST_FOR_SALE_FIELD, MAX_LENGTH_TOTAL_SUPPLY } from 'constants/nft';
-import { limitMaxlengNumber } from 'utils';
-import { ZERO_VALUE } from 'constants/common';
-import { useAppDispatch, useAppSelector } from 'hooks/useStore';
-import MetamaskService from 'services/MetamaskService';
-import selectedAddress from 'redux/address/selector';
-import { useWeb3React } from '@web3-react/core';
-import { useMintNFT } from '@components//pages/nft/hooks';
 import AppLoading from '@components//AppLoading';
-import LoadingNFTIcon from 'public/svg/loading_nft_icon.svg';
+import { useMintNFT } from '@components//pages/nft/hooks';
+import { useWeb3React } from '@web3-react/core';
 import { DEFAULT_RPC721 } from 'connectors/constants';
+import { LIST_FOR_SALE_FIELD } from 'constants/nft';
+import { useAppDispatch, useAppSelector } from 'hooks/useStore';
+import { useTranslation } from 'next-i18next';
+import LoadingNFTIcon from 'public/svg/loading_nft_icon.svg';
+import selectedAddress from 'redux/address/selector';
+import MetamaskService from 'services/MetamaskService';
+import AppButton from '../AppButton';
 
 interface PropsPayment {
   isModalPayment: boolean;
+  setIsModalLoading: any;
   handleClosePayment: () => void;
   dataNftDetail: any;
 }
@@ -29,7 +24,7 @@ interface PropsPayment {
 const { Title } = Typography;
 const { AMOUNT } = LIST_FOR_SALE_FIELD;
 
-const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: PropsPayment) => {
+const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail, setIsModalLoading }: PropsPayment) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { address } = useAppSelector(selectedAddress.getAddress);
@@ -50,7 +45,8 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
     });
   };
 
-  const handleSumbit = (values: any) => {
+  const handleSumbit = async (values: any) => {
+    setIsModalLoading(true)
     const param: any = {
       data: {
         collection: DEFAULT_RPC721,
@@ -60,7 +56,8 @@ const PaymentModal = ({ isModalPayment, handleClosePayment, dataNftDetail }: Pro
       },
     };
 
-    handleApproveMinted(param?.data, values)
+    await handleApproveMinted(param?.data, values);
+    setIsModalLoading(false)
     handleClosePayment()
 
   }

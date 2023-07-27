@@ -3,7 +3,7 @@ import { Typography, Tooltip } from 'antd';
 import cx from 'classnames';
 import AppLink from 'components/AppLink';
 import { FORMAT_DATETIME_PICKER } from 'constants/common';
-import { RedemptionStatus, REDEMPTION_LIST_FIELD } from 'constants/my-account';
+import { RedemptionStatus, PURCHASE_HISTORY_LIST_FIELD } from 'constants/my-account';
 import { renderURLs } from 'constants/routes';
 import moment from 'moment';
 import { TFunction } from 'next-i18next';
@@ -13,8 +13,8 @@ import { shortenAddress } from 'utils';
 
 const { Paragraph } = Typography;
 
-const { CREATED_AT, REQUEST_ID, QUANTITY, TOTAL_VALUE, STATUS, ACTION, NO, NUMBER_CATEGORIES, CODE, INFORMATION } =
-  REDEMPTION_LIST_FIELD;
+const { CREATED_AT, ITEM_NAME, QUANTITY, PRICE, STATUS, ACTION, NO, NUMBER_CATEGORIES, CODE, INFORMATION } =
+  PURCHASE_HISTORY_LIST_FIELD;
 
 export const renderStatus = (status: string, t: TFunction) => {
   switch (status) {
@@ -73,8 +73,8 @@ const privateColumn = (t: any) => [
   },
   {
     title: t('my_activities.txt_nft_name'),
-    dataIndex: REQUEST_ID,
-    key: REQUEST_ID,
+    dataIndex: ITEM_NAME,
+    key: ITEM_NAME,
     sorter: true,
     render: (value: number | string) => <AppNumber value={value} />,
   },
@@ -122,8 +122,8 @@ const privateColumn = (t: any) => [
   },
   {
     title: t('my_activities.redemption_value'),
-    dataIndex: TOTAL_VALUE,
-    key: TOTAL_VALUE,
+    dataIndex: PRICE,
+    key: PRICE,
     sorter: true,
     render: (value: any) => (
       <Fragment>
@@ -179,7 +179,7 @@ export const columnsMobile = (t: TFunction, currentColumn: any) => {
           <div className='information create'>
             <div className='top'>
               <div className='left'>
-                {checkExist(REQUEST_ID) && <span className='request_id'>{item?.[REQUEST_ID]}</span>}
+                {checkExist(ITEM_NAME) && <span className='request_id'>{item?.[ITEM_NAME]}</span>}
                 {checkExist(CREATED_AT) && (
                   <span className='time'>{moment(item?.[CREATED_AT]).format(FORMAT_DATETIME_PICKER)}</span>
                 )}
@@ -202,11 +202,11 @@ export const columnsMobile = (t: TFunction, currentColumn: any) => {
                   </div>
                 </div>
               )}
-              {checkExist(TOTAL_VALUE) && (
+              {checkExist(PRICE) && (
                 <div className='item'>
                   <div className='label'>{t('redemption.redemption_value')}</div>
                   <div className='value'>
-                    <AppNumber value={item?.[TOTAL_VALUE]} prefix='$' decimalScale={10} />
+                    <AppNumber value={item?.[PRICE]} prefix='$' decimalScale={10} />
                   </div>
                 </div>
               )}
