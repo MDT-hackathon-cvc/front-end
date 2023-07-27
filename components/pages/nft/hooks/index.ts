@@ -176,7 +176,7 @@ export const useMintNFT = () => {
 
           showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'message.S6');
           // router.push(renderURLs.NFT_DETAIL(idNft));
-          router.reload();
+          setTimeout(() => router.reload(),1000)
         }
       },
     },
@@ -195,7 +195,7 @@ export const usePutOnSaleNFT = () => {
     async (params: any) => {
 
       const paramPutOnSale = {
-        totalSupply: params?.totalSupply, hash:params?.hash
+        price: params?.price, hashPutOnSale:params?.hashPutOnSale
       }
       try {
         const response = await nftServices.handlePutOnSaleNft(params?.id, paramPutOnSale);
@@ -210,7 +210,7 @@ export const usePutOnSaleNFT = () => {
 
           showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'message.S7');
           // router.push(renderURLs.NFT_DETAIL(idNft));
-          router.reload();
+          setTimeout(() => router.reload(),1000)
         }
       },
     },
@@ -219,6 +219,37 @@ export const usePutOnSaleNFT = () => {
   return {
     onPutOnSaleNFT: handlePutOnSaleNFT.mutate,
     loadingPutOnSale: handlePutOnSaleNFT.isLoading,
+  };
+};
+
+export const useBuyNFT = () => {
+  const router = useRouter();
+
+  const handleBuyNFT = useMutation(
+    async (params: any) => {
+
+      try {
+        const response = await nftServices.handleBuyNft(params);
+        return { response };
+      } catch (error) {
+        throw error;
+      }
+    },
+    {
+      onSuccess: (res: any) => {
+        if (checkSusscessRequest(res?.response)) {
+
+          showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'message.S10');
+          // router.push(renderURLs.NFT_DETAIL(idNft));
+          setTimeout(() => router.reload(),1000)
+        }
+      },
+    },
+  );
+
+  return {
+    onBuyNFT: handleBuyNFT.mutate,
+    loadingBuyNFT: handleBuyNFT.isLoading,
   };
 };
 

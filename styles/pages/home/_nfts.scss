@@ -6,6 +6,7 @@
       position: relative;
       max-height: 600px;
       overflow: hidden;
+
       .image {
         width: 100%;
       }
@@ -54,6 +55,7 @@
         display: flex;
         align-items: center;
         padding: 1rem 0;
+
         .avatar-info {
           padding-left: 12px;
 
@@ -94,6 +96,7 @@
       .gr-btn {
         display: flex;
         margin: 1rem 0;
+
         .btn-buy {
           background: #DD4460;
           border-radius: 3px;
@@ -142,11 +145,13 @@
               }
             }
           }
+
           &:hover {
             .btn-buy {
               display: block;
             }
           }
+
           .btn-buy {
             display: none;
             background: #DD4460;
@@ -161,7 +166,29 @@
         }
       }
     }
+
+
   }
+}
+
+.loading-meta-mark {
+  .loading-content {
+    height: 150px;
+    display: flex;
+    padding-top: 3rem;
+    justify-content: center;
+
+    .ant-spin-nested-loading>div>.ant-spin {
+      background: #17232f;
+
+       .ant-spin-dot {
+        width: 80px;
+        position: initial;
+        height: 80px
+      }
+    }
+  }
+
 }
 
 .payment-title {
@@ -176,6 +203,7 @@
 
   .payment-content {
     width: 100%;
+
     .payment-item {
       display: flex;
       justify-content: space-between;
@@ -198,9 +226,11 @@
         font-size: 14px;
       }
     }
+
     .payment-form__input {
-      .field{
+      .field {
         display: flex;
+        flex-wrap: wrap;
       }
     }
 

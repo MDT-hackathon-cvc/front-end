@@ -27,7 +27,12 @@
       display: flex;
       align-items: center;
       min-width: 0;
-
+      .logo {
+        .app-header__app-icon {
+          border-radius: 50%;
+          width: 50px;
+        }
+      }
       .items {
         margin-left: 40px;
         min-width: 600px;
@@ -337,6 +342,7 @@
     &__app-icon {
       height: 30px;
       width: 100px;
+      border-radius: 50%;
     }
 
     .container {

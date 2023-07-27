@@ -4,7 +4,7 @@ import { Col, Row } from 'antd';
 
 import AppLink from '../AppLink';
 
-import AppLogo from 'public/svg/app_logo.svg';
+import AppLogo from 'public/images/logo_icon.webp';
 import FooterBackground from 'public/images/footer_background.png';
 import EmailIcon from 'public/svg/email_icon.svg';
 import InstagramIcon from 'public/svg/instagram_contact_icon.svg';

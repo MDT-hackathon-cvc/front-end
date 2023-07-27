@@ -4,12 +4,12 @@ import { sortDirection } from 'utils';
 import { columns, columnsMobile } from './columns';
 import { useTranslation } from 'next-i18next';
 import LENGTH_CONSTANTS from 'constants/length';
-import { REDEMPTION_LIST_FIELD } from 'constants/my-account';
+import { PURCHASE_HISTORY_LIST_FIELD } from 'constants/my-account';
 import { useMobile } from 'hooks/useWindowSize';
 import AppNumber from '@components//AppNumber';
 
 const { DEFAULT_PAGE_SIZE_OPTIONS } = LENGTH_CONSTANTS;
-const { INFORMATION } = REDEMPTION_LIST_FIELD;
+const { INFORMATION } = PURCHASE_HISTORY_LIST_FIELD;
 
 type TableComponentProps = {
   loading?: boolean;

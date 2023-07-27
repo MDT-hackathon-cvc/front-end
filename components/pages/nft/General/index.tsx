@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row } from 'antd';
 
 import Info from './Info';
@@ -9,7 +9,6 @@ import { useGetNftDetail } from '@components//pages/nft/hooks';
 
 const General = () => {
   const routes = useRouter();
-
   const { data }: any = useGetNftDetail(routes?.query?.id as string);
   const dataNftById: any = data?.data?.docs || [];
   return (
@@ -21,9 +20,9 @@ const General = () => {
         <Col lg={12} md={10} xs={24} xl={12} className='general__info'>
           <Info dataNftDetail={dataNftById} />
         </Col>
-        <Col xs={24}>
+        {/* <Col xs={24}>
           <Question />
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

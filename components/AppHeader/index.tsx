@@ -14,6 +14,7 @@ import selectedConnection from 'redux/connection/selector';
 import { useTranslation } from 'next-i18next';
 import EcosystemDropdown from './EcosystemDropdown';
 import DocsDropdown from './DocsDropdown';
+import Logo_Icon from 'public/images/logo_icon.webp';
 
 type HeaderProps = Record<string, never>;
 
@@ -30,7 +31,7 @@ const Header: React.FC<HeaderProps> = () => {
         <div className='menu'>
           <div className='logo'>
             <AppLink href={routeURLs.HOME}>
-              <img src={AppIcon} className='app-header__app-icon' />
+              <img src={Logo_Icon} className='app-header__app-icon' />
             </AppLink>
           </div>
           {!isMobile ? (

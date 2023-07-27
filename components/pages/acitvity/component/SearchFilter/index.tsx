@@ -3,7 +3,7 @@ import AppDropdown from '@components//AppDropdown';
 import FormItem, { TYPE_INPUT } from '@components//FormItem';
 import { Checkbox, Form, Tooltip } from 'antd';
 import LENGTH_CONSTANTS from 'constants/length';
-import { RedemptionStatus, REDEMPTION_FILTER, REDEMPTION_LIST_FIELD } from 'constants/my-account';
+import { RedemptionStatus, REDEMPTION_FILTER, PURCHASE_HISTORY_LIST_FIELD } from 'constants/my-account';
 import { Formik } from 'formik';
 import { useModal } from 'hooks/useModal';
 import isString from 'lodash/isString';
@@ -24,13 +24,13 @@ const {
   CREATED_AT,
   NUMBER_CATEGORIES,
   QUANTITY,
-  TOTAL_VALUE,
+  PRICE,
   STATUS: STATUS_COLUMN,
   ACTION,
-  REQUEST_ID,
+  ITEM_NAME,
   CODE,
   NO,
-} = REDEMPTION_LIST_FIELD;
+} = PURCHASE_HISTORY_LIST_FIELD;
 
 type SearchFilterProps = {
   paramSearch?: any;
@@ -55,14 +55,14 @@ const options = (t: TFunction) => [
   },
   {
     name: t('my_activities.redemption_value'),
-    value: TOTAL_VALUE,
+    value: PRICE,
   },
   {
     name: t('my_activities.txt_nft_name'),
-    value: REQUEST_ID,
+    value: ITEM_NAME,
   },
   {
-    name: t('my_activities.redeem_code'),
+    name: t('my_activities.txt_code'),
     value: CODE,
   },
   {
@@ -70,15 +70,15 @@ const options = (t: TFunction) => [
     value: NUMBER_CATEGORIES,
   },
   {
-    name: t('my_activities.status'),
+    name: t('my_activities.txt_status'),
     value: STATUS_COLUMN,
   },
   {
-    name: t('my_activities.quantity'),
+    name: t('my_activities.txt_quantity'),
     value: QUANTITY,
   },
   {
-    name: t('my_activities.action'),
+    name: t('my_activities.txt_action'),
     value: ACTION,
     disable: true,
   },
@@ -90,7 +90,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ setParamSearch, setCurrentC
   const timeout: any = useRef(null);
 
   const { visible, onCloseModal, setVisible } = useModal(false);
-  const [checkboxs, setCheckbox] = useState([REQUEST_ID, STATUS_COLUMN, QUANTITY, TOTAL_VALUE, CREATED_AT, ACTION]);
+  const [checkboxs, setCheckbox] = useState([ITEM_NAME, STATUS_COLUMN, QUANTITY, PRICE, CREATED_AT, ACTION]);
   const [categories, setCategories]: any = useState();
   const [listName, setListName]: any = useState([]);
   const [checkAll, setCheckAll] = useState(false);
@@ -176,7 +176,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ setParamSearch, setCurrentC
           <Form autoComplete='off'>
             <FormItem
               name={KEYWORD}
-              placeholder={t('redemption.search_by_request_id')}
+              placeholder={t('my_activities.txt_search_placeholder')}
               typeInput={TYPE_INPUT.TEXT}
               onChange={onChangeData(KEYWORD)}
               maxLength={MAX_LENGTH_INPUT}
@@ -186,21 +186,21 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ setParamSearch, setCurrentC
             />
             <FormItem
               name={START_TIME}
-              placeholder={t('redemption.start_minted')}
+              placeholder={t('my_activities.txt_start_date')}
               typeInput={TYPE_INPUT.DATE}
               onChange={(date: any) => onChangeData(START_TIME)(date?.clone()?.startOf('day') || null)}
               disabledDate={disabledFromDate}
             />
             <FormItem
               name={END_TIME}
-              placeholder={t('redemption.end_minted')}
+              placeholder={t('my_activities.txt_end_date')}
               typeInput={TYPE_INPUT.DATE}
               onChange={(date: any) => onChangeData(END_TIME)(date?.clone()?.endOf('day') || null)}
               disabledDate={disabledUntilDate}
             />
             <FormItem
               name={STATUS}
-              placeholder={t('redemption.status')}
+              placeholder={t('my_activities.txt_status')}
               typeInput={TYPE_INPUT.SELECT}
               options={optionsStatus(t)}
               onChange={onChangeData(STATUS)}

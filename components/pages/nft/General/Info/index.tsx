@@ -1,4 +1,4 @@
-import { Avatar, Button, Typography } from 'antd';
+import { Avatar, Button, Spin, Typography } from 'antd';
 import { useTranslation } from 'next-i18next';
 import { Fragment, useState } from 'react';
 
@@ -16,19 +16,28 @@ import OfferTab from './OfferTab';
 import OwnersTab from './OwnersTab';
 import PutOnSaleModal from '@components//PutOnSale';
 import { STATUS_NFT } from 'connectors/constants';
+import MetamaskService from 'services/MetamaskService';
+import { useWeb3React } from '@web3-react/core';
+import { useBuyNFT } from '@components//pages/nft/hooks';
+import LoadingModal from '@components//ModalLoading';
 
 
-const { Paragraph, Title } = Typography;
+
+const { Title } = Typography;
 const { OFFER, OWNERS } = NFT_TABS;
-const { MINTED, OFF_SALE } = STATUS_NFT;
+const { MINTED, OFF_SALE, ON_SALE,UNMINT } = STATUS_NFT;
 
 const Info = ({ dataNftDetail }: any) => {
   const { t } = useTranslation();
   const [isModalPayment, setIsModalPayment] = useState(false);
   const [isModalPutOnSale, setIsModalPutOnSale] = useState(false);
+  const [isModalLoading, setIsModalLoading] = useState(false);
 
+  const wallet = new MetamaskService().getInstance();
+  const { onBuyNFT } = useBuyNFT()
 
   const { address } = useAppSelector(selectedAddress.getAddress);
+  const { library } = useWeb3React();
 
   const [activeTab, setActiveTab] = useState({
     tab: OWNERS.query,
@@ -58,6 +67,28 @@ const Info = ({ dataNftDetail }: any) => {
   const handleClosePayment = () => setIsModalPayment(false);
   const handleClosePutOnSale = () => setIsModalPutOnSale(false);
 
+  const handleBuy = async () => {
+    setIsModalLoading(true);
+    await wallet.buyNFT({
+      account: address,
+      library,
+      data: {
+        orderId: dataNftDetail[0]?.orderId,
+        buyAmount: 1,
+        price: dataNftDetail[0]?.price
+      },
+      onCallback: (response: any) => onBuyNFT({
+        nftId: dataNftDetail[0]?._id,
+        quantity: 1,
+        price: dataNftDetail[0]?.price,
+        fromAddress: address,
+        transactionHash: response.hash,
+        status: 'SUCCESS'
+      }),
+    });
+    setIsModalLoading(false);
+  }
+  const checkStatus = (dataNftDetail[0]?.status === MINTED || dataNftDetail[0]?.status === OFF_SALE) ? 0 : (dataNftDetail[0]?.price / (10 ** 18))
   return (
     <Fragment>
       <div className='nft-detail-content'>
@@ -82,12 +113,13 @@ const Info = ({ dataNftDetail }: any) => {
         </div>
         <p className='statistical'>{dataNftDetail[0]?.description}</p>
         <div className='price'>
-          <span>{dataNftDetail[0]?.totalBurned} N1</span>
-          <span className='price-item'>~$1,600</span>
+          <span>{checkStatus || 0} XCR</span>
         </div>
         {address !== dataNftDetail[0]?.address ? <div className='gr-btn'>
-          {dataNftDetail[0]?.status === OFF_SALE && <Button className='btn-buy' onClick={handleOpenPayment}>Mint</Button>}
-          {dataNftDetail[0]?.status === MINTED && <Button className='btn-offer' onClick={handleOpenPutOnSale}>Put On Sale</Button>}
+          {dataNftDetail[0]?.status === UNMINT && <Button className='btn-buy' onClick={handleOpenPayment}>Mint</Button>}
+          {(dataNftDetail[0]?.status === MINTED || dataNftDetail[0]?.status === OFF_SALE) && <Button className='btn-offer' onClick={handleOpenPutOnSale}>Put On Sale</Button>}
+          {dataNftDetail[0]?.status === ON_SALE && (dataNftDetail[0]?.creatorAddress === address ? <Button className='btn-offer'>Cancel</Button> : <Button className='btn-buy' onClick={handleBuy}>Buy</Button>)}
+
         </div>
           : null
         }
@@ -99,9 +131,18 @@ const Info = ({ dataNftDetail }: any) => {
             className='my-activities-page-tab container'
           />
         </div> */}
-        <PaymentModal isModalPayment={isModalPayment} handleClosePayment={handleClosePayment} dataNftDetail={dataNftDetail} />
-        <PutOnSaleModal isModalPutOnSale={isModalPutOnSale} handleClosePutOnSale={handleClosePutOnSale} dataNftDetail={dataNftDetail} />
+        <PaymentModal
+          setIsModalLoading={setIsModalLoading}
+          isModalPayment={isModalPayment}
+          handleClosePayment={handleClosePayment}
+          dataNftDetail={dataNftDetail} />
+        <PutOnSaleModal
+          setIsModalLoading={setIsModalLoading}
+          isModalPutOnSale={isModalPutOnSale}
+          handleClosePutOnSale={handleClosePutOnSale}
+          dataNftDetail={dataNftDetail} />
       </div>
+      <LoadingModal isModalLoading={isModalLoading} />
     </Fragment>
   );
 };
