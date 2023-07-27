@@ -6,8 +6,9 @@ import { formatCurrency } from 'utils';
 import { BUY_FIELD, DEFAULT_INIT, LIST_FOR_SALE_FIELD } from 'constants/nft';
 
 const { QUANTITY: buyQuantity } = BUY_FIELD;
-const { QUANTITY: listForSaleQuantity, UNIT_PRICE: listForSaleUnitPrice } = LIST_FOR_SALE_FIELD;
+const { QUANTITY: listForSaleQuantity, UNIT_PRICE: listForSaleUnitPrice, PRICE: price } = LIST_FOR_SALE_FIELD;
 const { TRAIT_TYPE, VALUE, DESCRIPTION, IPFS_URL, NAME, FILE } = DEFAULT_INIT;
+
 
 export const getBuySchema = (t: TFunction, maxQuantity: number) => {
   return object().shape({
@@ -60,5 +61,13 @@ export const getListForSaleSchema = (t: TFunction, maxQuantity: number, required
     [listForSaleUnitPrice]: number()
       .positive(t('message.E2'))
       .required(t('message.E1', { field: t('nft_detail.txt_lfs_price') })),
+  });
+};
+
+export const getPutOnSaleSchema = (t: TFunction) => {
+  return object().shape({
+    [price]: number()
+      .positive(t('message.E2'))
+      .required(t('message.E1', { field: t('common.price') }))
   });
 };

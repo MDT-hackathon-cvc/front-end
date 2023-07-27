@@ -151,6 +151,9 @@
         font-weight: 700;
         margin-right: 24px;
         color: #848C9C;
+        &:hover {
+          color: #fff;
+        }
       }
 
       .notification-icon {

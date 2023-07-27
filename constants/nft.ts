@@ -65,13 +65,13 @@ export const EXTENSION_3D_SUPPORT_ARRAY = ['3d/glb'];
 export const NFT_TABS = {
   OWNERS: {
     key: 'OWNERS',
-    label: 'home.txt_owners',
+    label: 'common.txt_owners',
     type: 'Owners',
     query: 'Owners',
   },
   OFFER: {
     key: 'OFFER',
-    label: 'home.txt_offer',
+    label: 'common.txt_offer',
     type: 'Offer',
     query: 'item',
   },

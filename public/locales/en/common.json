@@ -386,7 +386,9 @@
     "txt_sale_date": "Sale Date",
     "txt_royalties": "Royalties",
     "txt_profit": "Profit",
-    "txt_view_on_polygonscan": "View on Polygonscan"
+    "txt_view_on_polygonscan": "View on Polygonscan",
+    "txt_status": "Status",
+    "txt_action": "Action"
   },
   "notification": {
     "txt_title": "Notification",

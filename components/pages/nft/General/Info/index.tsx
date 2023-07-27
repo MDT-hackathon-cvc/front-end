@@ -15,17 +15,19 @@ import selectedAddress from 'redux/address/selector';
 import OfferTab from './OfferTab';
 import OwnersTab from './OwnersTab';
 import PutOnSaleModal from '@components//PutOnSale';
+import { STATUS_NFT } from 'connectors/constants';
 
 
 const { Paragraph, Title } = Typography;
 const { OFFER, OWNERS } = NFT_TABS;
+const { MINTED, OFF_SALE } = STATUS_NFT;
 
 const Info = ({ dataNftDetail }: any) => {
   const { t } = useTranslation();
   const [isModalPayment, setIsModalPayment] = useState(false);
   const [isModalPutOnSale, setIsModalPutOnSale] = useState(false);
 
-  
+
   const { address } = useAppSelector(selectedAddress.getAddress);
 
   const [activeTab, setActiveTab] = useState({
@@ -84,19 +86,19 @@ const Info = ({ dataNftDetail }: any) => {
           <span className='price-item'>~$1,600</span>
         </div>
         {address !== dataNftDetail[0]?.address ? <div className='gr-btn'>
-          <Button className='btn-buy' disabled={dataNftDetail[0]?.status === "MINTED"} onClick={handleOpenPayment}>Mint</Button>
-          <Button className='btn-offer' onClick={handleOpenPutOnSale}>Put On Sale</Button>
+          {dataNftDetail[0]?.status === OFF_SALE && <Button className='btn-buy' onClick={handleOpenPayment}>Mint</Button>}
+          {dataNftDetail[0]?.status === MINTED && <Button className='btn-offer' onClick={handleOpenPutOnSale}>Put On Sale</Button>}
         </div>
           : null
         }
-        <div>
+        {/* <div>
           <AppTab
             onChangeTab={handleChangeTab}
             activeKey={activeTab.tab}
             listTab={listTab}
             className='my-activities-page-tab container'
           />
-        </div>
+        </div> */}
         <PaymentModal isModalPayment={isModalPayment} handleClosePayment={handleClosePayment} dataNftDetail={dataNftDetail} />
         <PutOnSaleModal isModalPutOnSale={isModalPutOnSale} handleClosePutOnSale={handleClosePutOnSale} dataNftDetail={dataNftDetail} />
       </div>
